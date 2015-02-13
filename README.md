@@ -1,3 +1,3 @@
 # OM-Status
 
-a [Sails](http://sailsjs.org) application
+a A status application for Odyssey of the Mind teams.
