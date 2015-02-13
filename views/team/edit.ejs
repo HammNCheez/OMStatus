@@ -1,0 +1,37 @@
+<form action="/team/update" method="POST">
+    <h2>Add A Team</h2>
+
+    <input type="text" class="form-control" placeholder="School Name" name="schoolName" value="<%= team.schoolName %>">
+    <br>
+    <input type="text" class="form-control" placeholder="Team Letter" name="teamLetter" value="<%= (team.teamLetter) ? team.teamLetter : '' %>">
+    <br>
+    <input type="text" class="form-control" placeholder="Membership Number" name="membershipNumber" value="<%= team.membershipNumber %>">
+    <br>
+    <!-- Add Dropdown for problem -->
+    <select name="problem">
+        <option value="P" <%= (team.problem == 'P') ? 'selected': '' %> >Primary</option>
+        <option value="1" <%= (team.problem == '1') ? 'selected': '' %> >Problem 1</option>
+        <option value="2" <%= (team.problem == '2') ? 'selected': '' %> >Problem 2</option>
+        <option value="3" <%= (team.problem == '3') ? 'selected': '' %> >Problem 3</option>
+        <option value="4" <%= (team.problem == '4') ? 'selected': '' %> >Problem 4</option>
+        <option value="5" <%= (team.problem == '5') ? 'selected': '' %> >Problem 5</option>
+    </select>
+    <br>
+    <!-- Add Dropdown for Division -->
+    <select name="division">
+        <option value="P" <%= (team.division == 'P') ? 'selected': '' %> >Primary</option>
+        <option value="1" <%= (team.division == '1') ? 'selected': '' %> >Division I</option>
+        <option value="2" <%= (team.division == '2') ? 'selected': '' %> >Division II</option>
+        <option value="3" <%= (team.division == '3') ? 'selected': '' %> >Division III</option>
+        <option value="4" <%= (team.division == '4') ? 'selected': '' %> >Division IV</option>
+    </select>
+    <br>
+    <input type="text" class="form-control" placeholder="Venue" name="venue"  value="<%= team.venue %>">
+    <br>
+    <input type="text" class="form-control" placeholder="Longterm Time" name="longtermTime"  value="<%= team.longtermTime %>">
+    <br>
+    <input type="text" class="form-control" placeholder="Spontaneous Time" name="sponTime"  value="<%= team.sponTime %>">
+    <br>
+    <br>
+    <input type="submit" class="btn btn-success btn-primary btn-block" value="Save Team" />
+</form>

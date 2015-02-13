@@ -1,0 +1,32 @@
+<h1>Team Info</h1>
+<table border=1>
+	<tbody>
+		<tr><td>School Name</td><td><%= team.schoolName %></td></tr>
+		<% if(team.teamLetter) { %>
+			<tr><td>Team Letter</td><td><%= team.teamLetter %></td></tr>
+		<% } %>
+		<tr><td>Membership Number</td><td><%= team.membershipNumber %></td></tr>
+		<tr><td>Problem</td><td><%= team.problem %></td></tr>
+		<tr><td>Division</td><td><%= team.division %></td></tr>
+		<tr><td>Venue</td><td><%= team.venue %></td></tr>
+		<tr><td>Longterm Time</td><td><%= moment(team.longtermTime).format('h:mm a')  %></td></tr>
+		<tr><td>Spontaneous Time</td><td><%= moment(team.sponTime).format('h:mm a')  %></td></tr>
+	</tbody>
+</table>
+
+<FORM action="/team/flag/<%= team.id %>" method="post">
+	Registration: 
+<INPUT type="submit" name="eventButton" value="checkedIn"> <br>
+	Venue: 
+<INPUT type="submit" name="eventButton" value="performed">
+<INPUT type="submit" name="eventButton" value="scoresReady">
+<INPUT type="submit" name="eventButton" value="scoresPickedUpByCoach">
+<INPUT type="submit" name="eventButton" value="scoresPickedUpByScoreRoom"> <br>
+	Score Room:
+<INPUT type="submit" name="eventButton" value="scoresAccepted"><br>
+	Spontaneous: 
+<INPUT type="submit" name="eventButton" value="sponCheckedIn">
+<INPUT type="submit" name="eventButton" value="sponCompleted">
+</FORM>
+
+<a href="/team/edit/<%= team.id %>">Edit Team</a>

@@ -1,0 +1,28 @@
+<h1>Problem <%= probNum %></h1>
+<table border=1>
+	<thead>
+		<tr>
+			<th>Membership #</th>
+			<th>Team</th>
+			<th>Longterm</th>
+			<th>Spontaneous</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for(var i = 0; i < teams.length; i++) { %>
+			<tr>
+				<td><%= teams[i].membershipNumber %></td>
+				<td><a href="/team/show/<%= teams[i].id %>"><%= teams[i].schoolName %> 
+				<% if(teams[i].teamLetter) { %>
+					: <%= teams[i].teamLetter %>
+				<% } %>
+				</a><br>
+					<%= teams[i].division %></td>
+				<td><%= moment(teams[i].longtermTime).format('h:mm a') %></td>
+				<td><%= moment(teams[i].sponTime).format('h:mm a')  %></td>
+			</tr>
+		<% } %>
+	</tbody>
+</table>
+
+<a href="/team/new?problem=<%= probNum %>">Add New Team</a>
