@@ -21,7 +21,7 @@ module.exports = {
 
         team.sponTime = new Date(team.sponTime);
 
-        Team.create(team, function teamCreated(err, team) {
+        Team.create(team).exec(function(err, team) {
             if (err) {
                 console.log(err);
 
@@ -57,7 +57,7 @@ module.exports = {
     edit: function(req, res, next) {
         Team.findOne({
             id: req.param('id')
-        }, function foundTeam(err, team) {
+        }).exec(function(err, team) {
             if (err) return next(err);
             if (!team) return next('Team does\'t exist');
 
@@ -72,7 +72,7 @@ module.exports = {
 
         Team.update({
             id: req.param('id')
-        }, updatedTeam, function teamUpdated(err) {
+        }, updatedTeam).exec(function(err) {
             if (err) {
                 req.session.err = err;
                 return res.redirect('/team/edit/' + req.param('id'));
@@ -128,14 +128,14 @@ module.exports = {
     destroy: function(req, res, next) {
         Team.findOne({
             id: req.param('id')
-        }, function foundUser(err, team) {
+        }).exec(function(err, team) {
             if (err) return next(err);
 
             if (!team) return next('Team does\'t exist');
 
             Team.destroy({
                 _id: req.param('id')
-            }, function teamDestroyed(err) {
+            }).exec(function(err) {
                 if (err) return next(err);
             });
 
