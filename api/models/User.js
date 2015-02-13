@@ -6,51 +6,51 @@
  */
 
 module.exports = {
-    schema: true,
-    attributes: {
-        name: {
-            type: 'string',
-            required: true
-        },
-        userId: {
-            type: 'string',
-            required: true,
-            unique: true
-        },
-        role: {
-            type: 'string'
-        },
-        email: {
-            type: 'string',
-            required: true,
-            email: true
-        },
-        encryptedPassword: {
-            type: 'string'
-        },
-
-        admin: {
-            type: 'boolean',
-            defaultsTo: false
-        }
-
-
+  schema: true,
+  attributes: {
+    name: {
+      type: 'string',
+      required: true
+    },
+    userId: {
+      type: 'string',
+      required: true,
+      unique: true
+    },
+    role: {
+      type: 'string'
+    },
+    email: {
+      type: 'string',
+      required: true,
+      email: true
+    },
+    encryptedPassword: {
+      type: 'string'
     },
 
-    beforeCreate: function(values, next) {
-        if (!values.password || values.password !== values.confirmation) {
-            return next({
-                err: ["Password doesn't match password confirmation"]
-            });
-        }
+    admin: {
+      type: 'boolean',
+      defaultsTo: false
+    }
 
-        require('bcrypt-nodejs').hash(values.password, null, null, function passwordEncrypted(err, encryptedPassword) {
-            if (err) return next(err);
 
-            values.encryptedPassword = encryptedPassword;
-            next();
-        });
-    }, 
+  },
 
-    login: function(userId, password) {}
+  beforeCreate: function(values, next) {
+    if (!values.password || values.password !== values.confirmation) {
+      return next({
+        err: ["Password doesn't match password confirmation"]
+      });
+    }
+
+    require('bcrypt-nodejs').hash(values.password, null, null, function passwordEncrypted(err, encryptedPassword) {
+      if (err) return next(err);
+
+      values.encryptedPassword = encryptedPassword;
+      next();
+    });
+  },
+
+  login: function(userId, password) {}
 };
