@@ -48,7 +48,7 @@
 	Registration: 
 	<INPUT type="submit" name="eventButton" value="checkedIn"> <br>
 <% } %>
-<% if(!(team.performed || team.scoresReady || team.scoresPickedUpByCoach || team.scoresPickedUpByScoreRoom)) { %>
+<% if(!(team.performed && team.scoresReady && team.scoresPickedUpByCoach && team.scoresPickedUpByScoreRoom)) { %>
 	Venue: 
 <% } %>
 <% if(!team.performed) { %>
@@ -67,7 +67,7 @@
 	Score Room:
 	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresAccepted"><br>
 <% } %>
-<% if(!(team.sponCheckedIn || team.sponCompleted)) { %>
+<% if(!(team.sponCheckedIn && team.sponCompleted)) { %>
 	Spontaneous: 
 <% } %>
 <% if(!team.sponCheckedIn) { %>
