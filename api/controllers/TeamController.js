@@ -134,7 +134,7 @@ module.exports = {
       if (!team) return next('Team does\'t exist');
 
       Team.destroy({
-        _id: req.param('id')
+        id: req.param('id')
       }).exec(function(err) {
         if (err) return next(err);
       });
