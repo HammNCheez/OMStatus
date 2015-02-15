@@ -21,11 +21,23 @@ module.exports = {
   //   connection: 'someMysqlServer'
   // },
 
+  connections: {
+    mongodbServer: {
+      adapter: 'sails-mongo',
+      host: process.env.OPENSHIFT_MONGODB_DB_HOST,
+      port: process.env.OPENSHIFT_MONGODB_DB_PORT,
+      user: process.env.OPENSHIFT_MONGODB_DB_USERNAME,
+      password: process.env.OPENSHIFT_MONGODB_DB_PASSWORD,
+      database: 'om'
+    }
+  },
+
   /***************************************************************************
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  // port: 80,
+  port: process.env.OPENSHIFT_NODEJS_PORT,
+  host: process.env.OPENSHIFT_NODEJS_IP,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
