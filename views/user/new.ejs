@@ -1,0 +1,26 @@
+<h1>Add New User</h1>
+
+<form action="/user/create" method="POST">
+    <h2>Add A Team</h2>
+
+    <input type="text" class="form-control" placeholder="Name" name="name">
+    <br>
+    <input type="text" class="form-control" placeholder="Email" name="email">
+    <br>
+    <input type="password" class="form-control" placeholder="Password" name="password">
+    <br>
+    <input type="password" class="form-control" placeholder="Password Confirmation" name="confirmation">
+    <br>
+
+	<input type="checkbox" name="roles" value="primary">Primary<br>
+	<input type="checkbox" name="roles" value="problem1">Problem 1<br>
+	<input type="checkbox" name="roles" value="problem2">Problem 2<br>
+	<input type="checkbox" name="roles" value="problem3">Problem 3<br>
+	<input type="checkbox" name="roles" value="problem4">Problem 4<br>
+	<input type="checkbox" name="roles" value="problem5">Problem 5<br>
+	<input type="checkbox" name="roles" value="spontaneous">Spontaneous<br>
+	<input type="checkbox" name="roles" value="scoreRoom">Score Room<br>
+	<input type="checkbox" name="roles" value="registration">Registration<br>
+
+    <input type="submit" class="btn btn-success btn-primary btn-block" value="Create User" />
+</form>

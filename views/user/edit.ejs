@@ -1,0 +1,17 @@
+<form action="/user/update/<%= user.id %>" method="POST" class="form-signin">
+  <h2>Editing user</h2>
+  <input value="<%= user.name %>" name="name" type="text" class="form-control" /><br>
+  <input value="<%= user.email %>" name="email" type="text" class="form-control" /><br>
+
+  <input type="checkbox" name="roles" value="primary" <%= _.contains(user.roles, 'primary') ? 'checked': '' %>>Primary<br>
+  <input type="checkbox" name="roles" value="problem1" <%= _.contains(user.roles, 'problem1') ? 'checked': '' %>>Problem 1<br>
+  <input type="checkbox" name="roles" value="problem2" <%= _.contains(user.roles, 'problem2') ? 'checked': '' %>>Problem 2<br>
+  <input type="checkbox" name="roles" value="problem3" <%= _.contains(user.roles, 'problem3') ? 'checked': '' %>>Problem 3<br>
+  <input type="checkbox" name="roles" value="problem4" <%= _.contains(user.roles, 'problem4') ? 'checked': '' %>>Problem 4<br>
+  <input type="checkbox" name="roles" value="problem5" <%= _.contains(user.roles, 'problem5') ? 'checked': '' %>>Problem 5<br>
+  <input type="checkbox" name="roles" value="spontaneous" <%= _.contains(user.roles, 'spontaneous') ? 'checked': '' %>>Spontaneous<br>
+  <input type="checkbox" name="roles" value="scoreRoom" <%= _.contains(user.roles, 'scoreRoom') ? 'checked': '' %>>Score Room<br>
+  <input type="checkbox" name="roles" value="registration" <%= _.contains(user.roles, 'registration') ? 'checked': '' %>>Registration<br>
+  
+  <input value="Save User" type="submit" class="btn btn-lg btn-primary btn-block" />
+</form>

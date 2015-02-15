@@ -12,13 +12,8 @@ module.exports = {
       type: 'string',
       required: true
     },
-    userId: {
-      type: 'string',
-      required: true,
-      unique: true
-    },
-    role: {
-      type: 'string'
+    roles: {
+      type: 'array'
     },
     email: {
       type: 'string',
@@ -27,14 +22,7 @@ module.exports = {
     },
     encryptedPassword: {
       type: 'string'
-    },
-
-    admin: {
-      type: 'boolean',
-      defaultsTo: false
     }
-
-
   },
 
   beforeCreate: function(values, next) {
