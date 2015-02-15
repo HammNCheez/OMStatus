@@ -139,7 +139,7 @@ module.exports = {
         if (err) return next(err);
       });
 
-      res.redirect('/team');
+      res.redirect('/problem/' + team.problem);
     });
   }
 
