@@ -40,7 +40,11 @@ module.exports = {
       var _ = require("underscore");
       res.view({
         user: user,
-        _ : _
+        _: _,
+        host: process.env.OPENSHIFT_MONGODB_DB_HOST,
+        port: process.env.OPENSHIFT_MONGODB_DB_PORT,
+        user: process.env.OPENSHIFT_MONGODB_DB_USERNAME,
+        password: process.env.OPENSHIFT_MONGODB_DB_PASSWORD
       });
     });
   },
