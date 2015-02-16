@@ -1,4 +1,7 @@
 <h1>Problem <%= probNum %></h1>
+
+<% for(var i = 0; i < venues.length; i++) { %>
+<h3>Venue <%= venues[i][0].venue %></h3>
 <table border=1>
 	<thead>
 		<tr>
@@ -9,20 +12,21 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% for(var i = 0; i < teams.length; i++) { %>
+		<% for(var j = 0; j < venues[i].length; j++) { %>
 			<tr>
-				<td><%= teams[i].membershipNumber %></td>
-				<td><a href="/team/show/<%= teams[i].id %>"><%= teams[i].schoolName %> 
-				<% if(teams[i].teamLetter) { %>
-					: <%= teams[i].teamLetter %>
+				<td><%= venues[i][j].membershipNumber %></td>
+				<td><a href="/team/show/<%= venues[i][j].id %>"><%= venues[i][j].schoolName %> 
+				<% if(venues[i][j].teamLetter) { %>
+					: <%= venues[i][j].teamLetter %>
 				<% } %>
 				</a><br>
-					<%= teams[i].division %></td>
-				<td><%= moment(teams[i].longtermTime).format('h:mm a') %></td>
-				<td><%= moment(teams[i].sponTime).format('h:mm a')  %></td>
+					<%= venues[i][j].division %></td>
+				<td><%= moment(venues[i][j].longtermTime).format('h:mm a') %></td>
+				<td><%= moment(venues[i][j].sponTime).format('h:mm a')  %></td>
 			</tr>
 		<% } %>
 	</tbody>
 </table>
+<% } %>
 
 <a href="/team/new?problem=<%= probNum %>">Add New Team</a>

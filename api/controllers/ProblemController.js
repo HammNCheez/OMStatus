@@ -30,34 +30,22 @@ module.exports = {
         if (!teams) return next();
 
         var moment = require('moment');
+        var _ = require("underscore");
+
+        var venues = _.uniq(teams, false, function(team){return team.venue; });
+
+        var sortedTeams = [];
+        for (var i = 0; i < venues.length; i++) {
+            var venue = _.where(teams, {venue: venues[i].venue});
+            sortedTeams.push(venue);
+        }
 
         res.view({
           probNum: id,
-          teams: teams,
+          venues: sortedTeams,
           moment: moment
         });
       });
     })(problem.id);
-
-
-    // Team.find({
-    //     where: {
-    //         problem: problem.id
-    //     },
-    //     sort: {
-    //         division: 0,
-    //         longtermTime: 0
-    //     }
-    // }).exec(function(err, teams, ) {
-    //     if (err) return next(err);
-    //     if (!teams) return next();
-
-    //     res.view({
-    //         teams: teams
-    //     });
-    // });
-  },
-  showTeams: function(req, res) {
-    res.view();
   }
 };

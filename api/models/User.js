@@ -22,6 +22,11 @@ module.exports = {
     },
     encryptedPassword: {
       type: 'string'
+    },
+
+    admin: {
+      type: 'boolean',
+      defaultsTo: false
     }
   },
 
@@ -38,7 +43,5 @@ module.exports = {
       values.encryptedPassword = encryptedPassword;
       next();
     });
-  },
-
-  login: function(userId, password) {}
+  }
 };
