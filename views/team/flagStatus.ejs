@@ -1,0 +1,28 @@
+<% if(team.checkedIn) { %>
+	Checked in at : <%= moment(team.checkedIn).format('h:mm a') %><br>
+<% } %>
+
+<% if(team.performed) { %>
+	Performed at : <%= moment(team.performed).format('h:mm a') %><br>
+<% } %>
+
+<% if(team.scoresReady) { %>
+	Scores ready at : <%= moment(team.scoresReady).format('h:mm a') %><br>
+<% } %>
+
+<% if(team.scoresPickedUpByCoach) { %>
+	Scores picked up by coach at : <%= moment(team.scoresPickedUpByCoach).format('h:mm a') %><br>
+<% } %>
+
+<% if(team.scoresPickedUpByScoreRoom) { %>
+	Scores picked up by scoreroom at : <%= moment(team.scoresPickedUpByScoreRoom).format('h:mm a') %><br>
+<% } %>
+<% if(team.scoresAccepted) { %>
+	Scores accepted by scoreroom at : <%= moment(team.scoresAccepted).format('h:mm a') %><br>
+<% } %>
+<% if(team.sponCheckedIn) { %>
+	Spontaneous checked in at : <%= moment(team.sponCheckedIn).format('h:mm a') %><br>
+<% } %>
+<% if(team.sponCompleted) { %>
+	Spontaneous completed at : <%= moment(team.sponCompleted).format('h:mm a') %><br>
+<% } %>

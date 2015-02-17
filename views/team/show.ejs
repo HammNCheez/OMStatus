@@ -13,69 +13,14 @@
 		<tr><td>Spontaneous Time</td><td><%= moment(team.sponTime).format('h:mm a')  %></td></tr>
 	</tbody>
 </table>
+<% if(session.authenticated && session.user) { %>
 
-<% if(team.checkedIn) { %>
-	Checked in at : <%= moment(team.checkedIn).format('h:mm a') %><br>
-<% } %>
+	<%- partial('flagStatus.ejs') %>
 
-<% if(team.performed) { %>
-	Performed at : <%= moment(team.performed).format('h:mm a') %><br>
-<% } %>
+	<%- partial('setFlags.ejs') %>
 
-<% if(team.scoresReady) { %>
-	Scores ready at : <%= moment(team.scoresReady).format('h:mm a') %><br>
-<% } %>
+	<% if( _.indexOf(session.user.roles, 'scoreRoom') > -1) { %>
+	<a href="/team/edit/<%= team.id %>">Edit Team</a>  <a href="/team/destroy/<%= team.id %>">Delete Team</a>
+	<% } %>
 
-<% if(team.scoresPickedUpByCoach) { %>
-	Scores picked up by coach at : <%= moment(team.scoresPickedUpByCoach).format('h:mm a') %><br>
 <% } %>
-
-<% if(team.scoresPickedUpByScoreRoom) { %>
-	Scores picked up by scoreroom at : <%= moment(team.scoresPickedUpByScoreRoom).format('h:mm a') %><br>
-<% } %>
-<% if(team.scoresAccepted) { %>
-	Scores accepted by scoreroom at : <%= moment(team.scoresAccepted).format('h:mm a') %><br>
-<% } %>
-<% if(team.sponCheckedIn) { %>
-	Spontaneous checked in at : <%= moment(team.sponCheckedIn).format('h:mm a') %><br>
-<% } %>
-<% if(team.sponCompleted) { %>
-	Spontaneous completed at : <%= moment(team.sponCompleted).format('h:mm a') %><br>
-<% } %>
-
-<FORM action="/team/flag/<%= team.id %>" method="post">
-<% if(!team.checkedIn) { %>
-	Registration: 
-	<INPUT type="submit" name="eventButton" value="checkedIn"> <br>
-<% } %>
-<% if(!(team.performed && team.scoresReady && team.scoresPickedUpByCoach && team.scoresPickedUpByScoreRoom)) { %>
-	Venue: 
-<% } %>
-<% if(!team.performed) { %>
-	<INPUT type="submit" name="eventButton" value="performed">
-<% } %>
-<% if(!team.scoresReady) { %>
-	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresReady">
-<% } %>
-<% if(!team.scoresPickedUpByCoach) { %>
-	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresPickedUpByCoach">
-<% } %>
-<% if(!team.scoresPickedUpByScoreRoom) { %>
-	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresPickedUpByScoreRoom"> <br>
-<% } %>
-<% if(!team.scoresAccepted) { %>
-	Score Room:
-	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresAccepted"><br>
-<% } %>
-<% if(!(team.sponCheckedIn && team.sponCompleted)) { %>
-	Spontaneous: 
-<% } %>
-<% if(!team.sponCheckedIn) { %>
-	<a href=""></a><INPUT type="submit" name="eventButton" value="sponCheckedIn">
-<% } %>
-<% if(!team.sponCompleted) { %>
-	<a href=""></a><INPUT type="submit" name="eventButton" value="sponCompleted">
-<% } %>
-</FORM>
-
-<a href="/team/edit/<%= team.id %>">Edit Team</a>  <a href="/team/destroy/<%= team.id %>">Delete Team</a>

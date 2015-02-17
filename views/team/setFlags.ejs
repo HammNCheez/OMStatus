@@ -1,0 +1,23 @@
+<FORM action="/team/flag/<%= team.id %>" method="post">
+
+<% if(!team.checkedIn &&  _.indexOf(session.user.roles, 'registration') > -1) { %>
+	Registration: 
+	<INPUT type="submit" name="eventButton" value="checkedIn"> <br>
+<% } %>
+<%- partial('venueFlags.ejs') %>
+<% if(!team.scoresAccepted && _.indexOf(session.user.roles, 'scoreRoom') > -1) { %>
+	Score Room:
+	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresAccepted"><br>
+<% } %>
+<% if(_.indexOf(session.user.roles, 'spontaneous') > -1) { %>
+  <% if(!(team.sponCheckedIn && team.sponCompleted)) { %>
+  	Spontaneous: 
+  <% } %>
+  <% if(!team.sponCheckedIn) { %>
+  	<a href=""></a><INPUT type="submit" name="eventButton" value="sponCheckedIn">
+  <% } %>
+  <% if(!team.sponCompleted) { %>
+  	<a href=""></a><INPUT type="submit" name="eventButton" value="sponCompleted">
+  <% } %>
+<% } %>
+</FORM>

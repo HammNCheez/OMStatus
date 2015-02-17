@@ -47,9 +47,11 @@ module.exports = {
       if (!team) return next();
 
       var moment = require('moment');
+      var _ = require('underscore');
       res.view({
         team: team,
-        moment: moment
+        moment: moment,
+        _ : _
       });
     });
   },
