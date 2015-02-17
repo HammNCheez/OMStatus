@@ -15,16 +15,23 @@ module.exports = {
   show: function(req, res, next) {
     var problem = req.allParams();
 
-    (function(id) {
+    var sort = {
+      division: 1,
+      venue: 1
+    };
+
+    if (problem.sort && problem.sort === 'spontaneous') {
+      sort.sponTime = 1;
+    } else {
+      sort.longtermTime = 1;
+    }
+
+    (function(id, sort) {
       Team.find({
         where: {
           problem: id
         },
-        sort: {
-          division: 1,
-          venue: 1,
-          longtermTime: 1
-        }
+        sort: sort
       }).exec(function(err, teams) {
         if (err) return next(err);
         if (!teams) return next();
@@ -32,12 +39,16 @@ module.exports = {
         var moment = require('moment');
         var _ = require("underscore");
 
-        var venues = _.uniq(teams, false, function(team){return team.venue; });
+        var venues = _.uniq(teams, false, function(team) {
+          return team.venue;
+        });
 
         var sortedTeams = [];
         for (var i = 0; i < venues.length; i++) {
-            var venue = _.where(teams, {venue: venues[i].venue});
-            sortedTeams.push(venue);
+          var venue = _.where(teams, {
+            venue: venues[i].venue
+          });
+          sortedTeams.push(venue);
         }
 
         res.view({
@@ -46,6 +57,6 @@ module.exports = {
           moment: moment
         });
       });
-    })(problem.id);
+    })(problem.id, sort);
   }
 };
