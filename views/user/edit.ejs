@@ -1,7 +1,6 @@
 <form action="/user/update/<%= user.id %>" method="POST" class="form-signin">
   <h2>Editing user</h2>
   <input value="<%= user.name %>" name="name" type="text" class="form-control" /><br>
-  <input value="<%= user.email %>" name="email" type="text" class="form-control" /><br>
 
   <input type="checkbox" name="roles" value="primary" <%= _.contains(user.roles, 'primary') ? 'checked': '' %>>Primary<br>
   <input type="checkbox" name="roles" value="problem1" <%= _.contains(user.roles, 'problem1') ? 'checked': '' %>>Problem 1<br>

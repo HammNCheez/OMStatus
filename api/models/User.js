@@ -15,11 +15,6 @@ module.exports = {
     roles: {
       type: 'array'
     },
-    email: {
-      type: 'string',
-      required: true,
-      email: true
-    },
     encryptedPassword: {
       type: 'string'
     },
