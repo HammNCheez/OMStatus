@@ -46,6 +46,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  '/login': 'AuthController.new',
+
+  '/logout': 'AuthController.destroy',
+
   '/problem/:id': {
     controller: 'ProblemController',
     action: 'show',

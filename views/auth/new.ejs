@@ -1,0 +1,11 @@
+<form action="/auth/create" method="POST">
+  <h2>Please sign in...</h2>
+
+  <% if(session.err) { %>
+    <h3><%= session.err %> </h3>
+  <% } %>
+
+  <input type="text" placeholder="User Id" name="userId" />
+  <input type="password" placeholder="Password" name="password" />
+  <input type="submit" value="Sign-in" />
+</form>
