@@ -54,7 +54,8 @@ module.exports = {
         res.view({
           probNum: id,
           venues: sortedTeams,
-          moment: moment
+          moment: moment,
+          _: _
         });
       });
     })(problem.id, sort);

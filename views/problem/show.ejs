@@ -9,6 +9,9 @@
 			<th>Team</th>
 			<th><a href="/problem/<%= probNum %>?sort=longTerm">Longterm</a></th>
 			<th><a href="/problem/<%= probNum %>?sort=spontaneous">Spontaneous</a></th>
+			<% if(session.user && _.indexOf(session.user.roles, 'registration') > -1) { %>
+			<th></th>
+			<% } %>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,6 +26,13 @@
 					<%= venues[i][j].division %></td>
 				<td><%= moment(venues[i][j].longtermTime).format('h:mm a') %></td>
 				<td><%= moment(venues[i][j].sponTime).format('h:mm a')  %></td>
+				<% if(session.user && _.indexOf(session.user.roles, 'registration') > -1) { %>
+				<td>
+					<% if(!venues[i][j].checkedIn) { %>
+					<a class="btn btn-success" href="/team/checkIn/<%= venues[i][j].id %>?problem=<%= probNum %>">Check-in</a>
+					<% } %>
+				</td>
+				<% } %>
 			</tr>
 		<% } %>
 	</tbody>

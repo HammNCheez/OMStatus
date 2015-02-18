@@ -127,6 +127,19 @@ module.exports = {
       });
   },
 
+  checkIn: function(req, res, next){
+    Team.update({
+      id: req.param('id')
+    }, {checkedIn: new Date()}).exec(
+      function(err) {
+        if (err) {
+          req.session.err = err;
+        }
+
+        res.redirect('/problem/' + req.param('problem'));
+      });
+  },
+
   destroy: function(req, res, next) {
     Team.findOne({
       id: req.param('id')
