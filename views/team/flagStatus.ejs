@@ -1,28 +1,66 @@
+<!-- Registration Flag -->
 <% if(team.checkedIn) { %>
-	Checked in at : <%= moment(team.checkedIn).format('h:mm a') %><br>
+	Checked in at : <%= Utils.getTime(team.checkedIn) %> 
+	<% if( Utils.hasRole(session.user, 'registration')) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=checkedIn">Remove</a>
+	<% } %>
+	<br>
 <% } %>
 
+<!-- Venue Flags -->
 <% if(team.performed) { %>
-	Performed at : <%= moment(team.performed).format('h:mm a') %><br>
+	Performed at : <%= Utils.getTime(team.performed) %>
+	<% if( Utils.isValidUserForProblem(team, session.user)) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=performed">Remove</a>
+	<% } %>
+	<br>
 <% } %>
 
 <% if(team.scoresReady) { %>
-	Scores ready at : <%= moment(team.scoresReady).format('h:mm a') %><br>
+	Scores ready at : <%= Utils.getTime(team.scoresReady) %>
+	<% if( Utils.isValidUserForProblem(team, session.user)) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=scoresReady">Remove</a>
+	<% } %>
+	<br>
 <% } %>
 
 <% if(team.scoresPickedUpByCoach) { %>
-	Scores picked up by coach at : <%= moment(team.scoresPickedUpByCoach).format('h:mm a') %><br>
+	Scores picked up by coach at : <%= Utils.getTime(team.scoresPickedUpByCoach) %>
+	<% if( Utils.isValidUserForProblem(team, session.user)) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=scoresPickedUpByCoach">Remove</a>
+	<% } %>
+	<br>
 <% } %>
 
 <% if(team.scoresPickedUpByScoreRoom) { %>
-	Scores picked up by scoreroom at : <%= moment(team.scoresPickedUpByScoreRoom).format('h:mm a') %><br>
+	Scores picked up by scoreroom at : <%= Utils.getTime(team.scoresPickedUpByScoreRoom) %>
+	<% if( Utils.isValidUserForProblem(team, session.user)) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=scoresPickedUpByScoreRoom">Remove</a>
+	<% } %>
+	<br>
 <% } %>
+
+<!-- Score Room Flags -->
 <% if(team.scoresAccepted) { %>
-	Scores accepted by scoreroom at : <%= moment(team.scoresAccepted).format('h:mm a') %><br>
+	Scores accepted by scoreroom at : <%= Utils.getTime(team.scoresAccepted) %>
+	<% if( Utils.hasRole(session.user, 'scoreRoom')) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=scoresAccepted">Remove</a>
+	<% } %>
+	<br>
 <% } %>
+
+<!-- Spontaneous Flags -->
 <% if(team.sponCheckedIn) { %>
-	Spontaneous checked in at : <%= moment(team.sponCheckedIn).format('h:mm a') %><br>
+	Spontaneous checked in at : <%= Utils.getTime(team.sponCheckedIn) %>
+	<% if( Utils.hasRole(session.user, 'spontaneous')) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=sponCheckedIn">Remove</a>
+	<% } %>
+	<br>
 <% } %>
 <% if(team.sponCompleted) { %>
-	Spontaneous completed at : <%= moment(team.sponCompleted).format('h:mm a') %><br>
+	Spontaneous completed at : <%= Utils.getTime(team.sponCompleted) %>
+	<% if( Utils.hasRole(session.user, 'spontaneous')) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=sponCompleted">Remove</a>
+	<% } %>
+	<br>
 <% } %>

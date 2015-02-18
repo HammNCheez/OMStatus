@@ -1,15 +1,36 @@
 <FORM action="/team/flag/<%= team.id %>" method="post">
-
-<% if(!team.checkedIn &&  _.indexOf(session.user.roles, 'registration') > -1) { %>
+<!-- Registration Flag -->
+<% if(!team.checkedIn &&  Utils.hasRole(session.user, 'registration')) { %>
 	Registration: 
 	<INPUT type="submit" name="eventButton" value="checkedIn"> <br>
 <% } %>
-<%- partial('venueFlags.ejs') %>
-<% if(!team.scoresAccepted && _.indexOf(session.user.roles, 'scoreRoom') > -1) { %>
+<!-- venue Flags -->
+<% if(Utils.isValidUserForProblem(team, session.user)) { %>
+  <% if(!(team.performed && team.scoresReady && team.scoresPickedUpByCoach && team.scoresPickedUpByScoreRoom)) { %>
+    Venue: 
+  <% } %>
+  <% if(!team.performed) { %>
+    <INPUT type="submit" name="eventButton" value="performed">
+  <% } %>
+  <% if(!team.scoresReady) { %>
+    <INPUT type="submit" name="eventButton" value="scoresReady">
+  <% } %>
+  <% if(!team.scoresPickedUpByCoach) { %>
+    <INPUT type="submit" name="eventButton" value="scoresPickedUpByCoach">
+  <% } %>
+  <% if(!team.scoresPickedUpByScoreRoom) { %>
+    <INPUT type="submit" name="eventButton" value="scoresPickedUpByScoreRoom"> <br>
+  <% } %>
+<% } %>
+
+<!-- Score Room Flag -->
+<% if(!team.scoresAccepted && Utils.hasRole(session.user, 'scoreRoom')) { %>
 	Score Room:
 	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresAccepted"><br>
 <% } %>
-<% if(_.indexOf(session.user.roles, 'spontaneous') > -1) { %>
+
+<!-- Spontaneous Flags -->
+<% if(Utils.hasRole(session.user, 'spontaneous')) { %>
   <% if(!(team.sponCheckedIn && team.sponCompleted)) { %>
   	Spontaneous: 
   <% } %>

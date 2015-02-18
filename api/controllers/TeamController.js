@@ -46,12 +46,9 @@ module.exports = {
       if (err) return next(err);
       if (!team) return next();
 
-      var moment = require('moment');
-      var _ = require('underscore');
       res.view({
         team: team,
-        moment: moment,
-        _ : _
+        Utils: UtilityService
       });
     });
   },
@@ -127,10 +124,12 @@ module.exports = {
       });
   },
 
-  checkIn: function(req, res, next){
+  checkIn: function(req, res, next) {
     Team.update({
       id: req.param('id')
-    }, {checkedIn: new Date()}).exec(
+    }, {
+      checkedIn: new Date()
+    }).exec(
       function(err) {
         if (err) {
           req.session.err = err;

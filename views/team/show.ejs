@@ -9,8 +9,8 @@
 		<tr><td>Problem</td><td><%= team.problem %></td></tr>
 		<tr><td>Division</td><td><%= team.division %></td></tr>
 		<tr><td>Venue</td><td><%= team.venue %></td></tr>
-		<tr><td>Longterm Time</td><td><%= moment(team.longtermTime).format('h:mm a')  %></td></tr>
-		<tr><td>Spontaneous Time</td><td><%= moment(team.sponTime).format('h:mm a')  %></td></tr>
+		<tr><td>Longterm Time</td><td><%= Utils.getTime(team.longtermTime) %></td></tr>
+		<tr><td>Spontaneous Time</td><td><%= Utils.getTime(team.sponTime) %></td></tr>
 	</tbody>
 </table>
 <% if(session.authenticated && session.user) { %>
@@ -19,8 +19,8 @@
 
 	<%- partial('setFlags.ejs') %>
 
-	<% if( _.indexOf(session.user.roles, 'scoreRoom') > -1) { %>
-	<a href="/team/edit/<%= team.id %>">Edit Team</a>  <a href="/team/destroy/<%= team.id %>">Delete Team</a>
+	<% if( Utils.hasRole(session.user, 'scoreRoom')) { %>
+	<a class="btn btn-warning" href="/team/edit/<%= team.id %>">Edit Team</a>  <a class="btn btn-danger" href="/team/destroy/<%= team.id %>">Delete Team</a>
 	<% } %>
 
 <% } %>
