@@ -35,3 +35,11 @@
     <br>
     <input type="submit" class="btn btn-success btn-primary btn-block" value="Create Team" />
 </form>
+
+<% if(problem) { %>
+<script type="text/javascript">
+window.onload=function () {
+    $("#p<%= problem %>Link").addClass('active');
+};
+</script>
+<% } %>

@@ -40,3 +40,9 @@
 <% } %>
 
 <a href="/team/new?problem=<%= probNum %>">Add New Team</a>
+
+<script type="text/javascript">
+window.onload=function () {
+    $("#p<%= probNum %>Link").addClass('active');
+};
+</script>

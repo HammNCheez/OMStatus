@@ -1,2 +1,3 @@
 git push ssh://54e023845973caaefb0000d2@om-stapleman.rhcloud.com/~/git/om.git/ master
 
+mongorestore --host 127.8.117.130:27017 -u admin -p yx-FyK73kEh9 -d om --drop dump/om

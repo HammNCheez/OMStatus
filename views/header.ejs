@@ -14,32 +14,29 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
-        <li class="active">
+        <li id="pPLink">
             <a href="/problem/P">Primary</a>
         </li>
-        <li>
+        <li id="p1Link">
             <a href="/problem/1">Problem 1</a>
         </li>
-        <li>
+        <li id="p2Link">
             <a href="/problem/2">Problem 2</a>
         </li>
-        <li>
+        <li id="p3Link">
             <a href="/problem/3">Problem 3</a>
         </li>
-        <li>
+        <li id="p4Link">
             <a href="/problem/4">Problem 4</a>
         </li>
-        <li>
+        <li id="p5Link">
             <a href="/problem/5">Problem 5</a>
-        </li>
-        <li>
-            <a href="/problem/S">Spontaneous</a>
         </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <% if(session.authenticated && session.user.admin) { %>
-        <li><a href="/user">Users</a></li>
+        <li id="usersLink"><a href="/user">Users</a></li>
         <% } %>
         <% if(!session.authenticated) { %>
         <li><a class="navbar-link" href="/login">Sign In</a></li>
