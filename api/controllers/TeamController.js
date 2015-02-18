@@ -140,6 +140,84 @@ module.exports = {
       });
   },
 
+  removeFlag: function(req, res, next) {
+    var update = {};
+
+    switch (req.param('flag')) {
+      case "checkedIn":
+        update = {
+          $unset: {
+            checkedIn: 1
+          }
+        };
+        break;
+      case "performed":
+        update = {
+          $unset: {
+            performed: 1
+          }
+        };
+        break;
+      case "scoresReady":
+        update = {
+          $unset: {
+            scoresReady: 1
+          }
+        };
+        break;
+      case "scoresPickedUpByCoach":
+        update = {
+          $unset: {
+            scoresPickedUpByCoach: 1
+          }
+        };
+        break;
+      case "scoresPickedUpByScoreRoom":
+        update = {
+          $unset: {
+            scoresPickedUpByScoreRoom: 1
+          }
+        };
+        break;
+      case "scoresAccepted":
+        update = {
+          $unset: {
+            scoresAccepted: 1
+          }
+        };
+        break;
+      case "sponCheckedIn":
+        update = {
+          $unset: {
+            sponCheckedIn: 1
+          }
+        };
+        break;
+      case "sponCompleted":
+        update = {
+          $unset: {
+            sponCompleted: 1
+          }
+        };
+    }
+
+    Team.native(function(err, collection) {
+      var ObjectID = require('mongodb').ObjectID;
+      var id = new ObjectID(req.param('id'));
+      collection.update({
+          _id: id
+        }, update,
+        function(err, object) {
+          if (err) {
+            req.session.err = err;
+          }
+
+          res.redirect('/team/show/' + req.param('id'));
+        }
+      );
+    });
+  },
+
   destroy: function(req, res, next) {
     Team.findOne({
       id: req.param('id')

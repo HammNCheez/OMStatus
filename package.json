@@ -31,7 +31,8 @@
     "sails-mongo": "^0.10.5",
     "moment": "~2.9.0",
     "bcrypt-nodejs": "~0.0.3",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "mongodb": "~1.4.31"
   },
   "scripts": {
     "start": "node app.js",
