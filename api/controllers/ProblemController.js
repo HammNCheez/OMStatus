@@ -35,8 +35,7 @@ module.exports = {
       }).exec(function(err, teams) {
         if (err) return next(err);
         if (!teams) return next();
-
-        var moment = require('moment');
+        
         var _ = require("underscore");
 
         var venues = _.uniq(teams, false, function(team) {
@@ -54,8 +53,7 @@ module.exports = {
         res.view({
           probNum: id,
           venues: sortedTeams,
-          moment: moment,
-          _: _
+          Utils: UtilityService
         });
       });
     })(problem.id, sort);
