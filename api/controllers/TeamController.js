@@ -72,7 +72,8 @@ module.exports = {
         if (!team) return next('Team does\'t exist');
 
         res.view({
-          team: team
+          team: team,
+          Utils: UtilityService
         });
       });
     } else {

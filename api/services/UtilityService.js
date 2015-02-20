@@ -26,5 +26,12 @@ module.exports = {
         return '';
 
     return moment(date).format('h:mm a');
+  },
+
+  getDateTime: function(date){
+    if(!date)
+      return '';
+
+    return moment(date).format('MM/DD/YYYY h:mm a');
   }
 };
