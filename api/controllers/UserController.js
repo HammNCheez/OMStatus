@@ -6,97 +6,105 @@
  */
 
 module.exports = {
-  'new': function(req, res) {
-    res.view();
-  },
+    'new': function(req, res) {
+        res.view();
+    },
 
-  'create': function(req, res) {
-    User.create(req.params.all()).exec(function(err, user) {
-      if (err) {
-        console.log(err);
+    'create': function(req, res) {
+        User.create(req.params.all()).exec(function(err, user) {
+            if (err) {
+                console.log(err);
 
-        req.session.flash = {
-          err: err
-        };
+                req.session.flash = {
+                    err: err
+                };
 
-        return res.redirect('user/new');
-      }
+                return res.redirect('user/new');
+            }
 
-      //log user in
-      req.session.authenticated = true;
-      req.session.user = user;
+            //log user in
+            req.session.authenticated = true;
+            req.session.user = user;
 
-      res.redirect('user/show/' + user.id);
-    });
+            res.redirect('user/show/' + user.id);
+        });
 
-  },
+    },
 
-  show: function(req, res, next) {
-    User.findOne({
-      id: req.param('id')
-    }).exec(function(err, user) {
-      if (err) return next(err);
-      if (!user) return next();
-      var _ = require("underscore");
-      res.view({
-        user: user,
-        _: _
-      });
-    });
-  },
+    show: function(req, res, next) {
+        User.findOne({
+            id: req.param('id')
+        }).exec(function(err, user) {
+            if (err) return next(err);
+            if (!user) return next();
+            var _ = require("underscore");
+            res.view({
+                user: user,
+                _: _
+            });
+        });
+    },
 
-  index: function(req, res, next) {
-    User.find().exec(function(err, users) {
-      if (err) return next(err);
+    index: function(req, res, next) {
+        User.find().exec(function(err, users) {
+            if (err) return next(err);
 
-      res.view({
-        users: users
-      });
-    });
-  },
+            res.view({
+                users: users
+            });
+        });
+    },
 
-  edit: function(req, res, next) {
-    User.findOne({
-      id: req.param('id')
-    }).exec(function(err, user) {
-      if (err) return next(err);
-      if (!user) return next('User does\'t exist');
+    edit: function(req, res, next) {
+        User.findOne({
+            id: req.param('id')
+        }).exec(function(err, user) {
+            if (err) return next(err);
+            if (!user) return next('User does\'t exist');
 
-      res.view({
-        user: user
-      });
-    });
-  },
+            res.view({
+                user: user
+            });
+        });
+    },
 
-  update: function(req, res, next) {
-    var updatedUser = req.params.all();
+    update: function(req, res, next) {
+        var updatedUser = req.params.all();
 
-    User.update({
-      id: req.param('id')
-    }, updatedUser).exec(function(err) {
-      if (err) {
-        return res.redirect('/user/edit/' + req.param('id'));
-      }
+        User.update({
+            id: req.param('id')
+        }, updatedUser).exec(function(err) {
+            if (err) {
+                return res.redirect('/user/edit/' + req.param('id'));
+            }
 
-      res.redirect('/user/show/' + req.param('id'));
-    });
-  },
+            res.redirect('/user/show/' + req.param('id'));
+        });
+    },
 
-  destroy: function(req, res, next) {
-    User.findOne({
-      id: req.param('id')
-    }).exec(function(err, user) {
-      if (err) return next(err);
+    destroy: function(req, res, next) {
+        User.findOne({
+            id: req.param('id')
+        }).exec(function(err, user) {
+            if (err) return next(err);
 
-      if (!user) return next('User does\'t exist');
+            if (!user) return next('User does\'t exist');
 
-      User.destroy({
-        id: req.param('id')
-      }).exec(function(err) {
-        if (err) return next(err);
-      });
+            User.destroy({
+                id: req.param('id')
+            }).exec(function(err) {
+                if (err) return next(err);
+            });
 
-      res.redirect('/user');
-    });
-  }
+            res.redirect('/user');
+        });
+    },
+
+    getUsers: function(res, req) {
+        User.find().exec(function(err, users) {
+            if (err) return next(err);
+
+            req.json(users);
+        });
+    }
 };

@@ -1,5 +1,5 @@
-<h1>Users</h1>
-<table border=1>
+<!--<h1>Users</h1>
+ <table border=1>
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -18,12 +18,63 @@
 			</tr>
 		<% } %>
 	</tbody>
-</table>
-
+</table> -->
+<div class='row'>
+	<div class='col-md-4'>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+		    	<h3 class="panel-title">Users</h3>
+		  	</div>
+			<div class="list-group" data-bind='foreach: users'>
+				<a class="list-group-item" data-bind='text: name, click: $parent.getRoles'></a>
+			</div>
+		</div>
+	</div>
+	<div class='col-md-4'>
+		<div class="panel panel-success">
+			<div class="panel-heading">
+		    	<h3 class="panel-title">Roles</h3>
+		  	</div>
+			<div class="list-group" data-bind='foreach: roles'>
+				<a class="list-group-item" data-bind='text: $data'></a>
+			</div>
+		</div>
+	</div>
+</div>
 <a href="/user/new">Add New User</a>
+
+<script type="text/javascript" src='js/knockout-3.3.0.js'></script>
+<script type="text/javascript" src='js/jquery-1.11.2.min.js'></script>
 
 <script type="text/javascript">
 window.onload=function () {
     $("#userLink").addClass('active');
 };
+</script>
+
+<script type="text/javascript">
+var userViewModel = function() {
+	var self = this;
+
+	self.users = ko.observableArray();
+	self.roles = ko.observableArray();
+
+	self.getUsers = function() {
+		$.ajax({
+			url: '/user/getUsers'
+		}).success(function(data){
+			self.users.push.apply(self.users, data);
+		});
+	};
+
+	self.getRoles = function (user) {
+		self.roles.removeAll();
+		self.roles.push.apply(self.roles, user.roles);
+	};
+
+	self.getUsers();
+}
+
+ko.applyBindings(new userViewModel());
+
 </script>
