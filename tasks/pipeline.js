@@ -30,13 +30,12 @@ var jsFilesToInject = [
 
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/jquery-1.11.2.min.js',
-  'js/dependencies/jquery.validate.min.js',
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/moment.min.js',
-  'js/**/*.js'
+  //'js/moment.min.js',
+  //'js/**/*.js'
 ];
 
 

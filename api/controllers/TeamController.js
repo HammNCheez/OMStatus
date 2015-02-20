@@ -15,7 +15,7 @@ module.exports = {
   },
 
   'create': function(req, res) {
-    if (req.user && (UtilityService.hasRole(req.user, 'scoreRoom') || req.user.admin)) {
+    if (req.session.user && (UtilityService.hasRole(req.session.user, 'scoreRoom') || req.session.user.admin)) {
       var team = req.params.all();
 
       team.longtermTime = new Date(team.longtermTime);
@@ -26,7 +26,9 @@ module.exports = {
         if (err) {
           console.log(err);
 
-          req.session.err = err;
+          req.session.flash = {
+            err: err
+          };
 
           return res.redirect('team/new');
         }
@@ -34,9 +36,11 @@ module.exports = {
         res.redirect('team/show/' + team.id);
       });
     } else {
-      req.session.err = {
-        title: 'Unauthorized',
-        message: 'To create a team you must be logged in and have the Score Room priveledge.'
+      req.session.flash = {
+        err: {
+          title: 'Unauthorized',
+          message: 'To create a team you must be logged in and have the Score Room priveledge.'
+        }
       };
 
       res.redirect('team/new');
@@ -60,7 +64,7 @@ module.exports = {
   },
 
   edit: function(req, res, next) {
-    if (req.user && (UtilityService.hasRole(req.user, 'scoreRoom') || req.user.admin)) {
+    if (req.session.user && (UtilityService.hasRole(req.session.user, 'scoreRoom') || req.session.user.admin)) {
       Team.findOne({
         id: req.param('id')
       }).exec(function(err, team) {
@@ -72,9 +76,11 @@ module.exports = {
         });
       });
     } else {
-      req.session.err = {
-        title: 'Unauthorized',
-        message: 'To edit a team you must be logged in and have the Score Room priveledge.'
+      req.session.flash = {
+        err: {
+          title: 'Unauthorized',
+          message: 'To edit a team you must be logged in and have the Score Room priveledge.'
+        }
       };
 
       res.redirect('team/new');
@@ -82,23 +88,27 @@ module.exports = {
   },
 
   update: function(req, res, next) {
-    if (req.user && (UtilityService.hasRole(req.user, 'scoreRoom') || req.user.admin)) {
+    if (req.session.user && (UtilityService.hasRole(req.session.user, 'scoreRoom') || req.session.user.admin)) {
       var updatedTeam = req.params.all();
 
       Team.update({
         id: req.param('id')
       }, updatedTeam).exec(function(err) {
         if (err) {
-          req.session.err = err;
+          req.session.flash = {
+            err: err
+          };
           return res.redirect('/team/edit/' + req.param('id'));
         }
 
         res.redirect('/team/show/' + req.param('id'));
       });
     } else {
-      req.session.err = {
-        title: 'Unauthorized',
-        message: 'To edit a team you must be logged in and have the Score Room priveledge.'
+      req.session.flash = {
+        err: {
+          title: 'Unauthorized',
+          message: 'To edit a team you must be logged in and have the Score Room priveledge.'
+        }
       };
 
       res.redirect('team/new');
@@ -141,7 +151,9 @@ module.exports = {
     }, update).exec(
       function(err) {
         if (err) {
-          req.session.err = err;
+          req.session.flash = {
+            err: err
+          };
         }
 
         res.redirect('/team/show/' + req.param('id'));
@@ -149,7 +161,7 @@ module.exports = {
   },
 
   checkIn: function(req, res, next) {
-    if (req.user && UtilityService.hasRole(req.user, 'registration')) {
+    if (req.session.user && UtilityService.hasRole(req.session.user, 'registration')) {
       Team.update({
         id: req.param('id')
       }, {
@@ -157,7 +169,9 @@ module.exports = {
       }).exec(
         function(err) {
           if (err) {
-            req.session.err = err;
+            req.session.flash = {
+              err: err
+            };
           }
 
           res.redirect('/problem/' + req.param('problem'));
@@ -236,7 +250,9 @@ module.exports = {
         }, update,
         function(err, object) {
           if (err) {
-            req.session.err = err;
+            req.session.flash = {
+              err: err
+            };
           }
 
           res.redirect('/team/show/' + req.param('id'));
@@ -246,7 +262,7 @@ module.exports = {
   },
 
   destroy: function(req, res, next) {
-    if (req.user && (UtilityService.hasRole(req.user, 'scoreRoom') || req.user.admin)) {
+    if (req.session.user && (UtilityService.hasRole(req.session.user, 'scoreRoom') || req.session.user.admin)) {
       Team.findOne({
         id: req.param('id')
       }).exec(function(err, team) {
@@ -263,9 +279,11 @@ module.exports = {
         res.redirect('/problem/' + team.problem);
       });
     } else {
-      req.session.err = {
-        title: 'Unauthorized',
-        message: 'To edit a team you must be logged in and have the Score Room priveledge.'
+      req.session.flash = {
+        err: {
+          title: 'Unauthorized',
+          message: 'To edit a team you must be logged in and have the Score Room priveledge.'
+        }
       };
 
       res.redirect('/problem' + team.problem);
