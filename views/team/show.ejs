@@ -1,37 +1,51 @@
-<div class="col-md-3"></div>
-<div class="col-md-6 col-xs-12">
-    <form action="/team/update/<%= team.id %>" method="POST">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3>Team Info</h3>
-            </div>
-            <div class="panel-body">
-				<table class="table">
-					<tbody>
-						<tr><th>School Name</th><td><%= team.schoolName %></td></tr>
-						<% if(team.teamLetter) { %>
-							<tr><th>Team Letter</th><td><%= team.teamLetter %></td></tr>
-						<% } %>
-						<tr><th>Membership Number</th><td><%= team.membershipNumber %></td></tr>
-						<tr><th>Problem</th><td><%= team.problem %></td></tr>
-						<tr><th>Division</th><td><%= team.division %></td></tr>
-						<tr><th>Venue</th><td><%= team.venue %></td></tr>
-						<tr><th>Longterm Time</th><td><%= Utils.getTime(team.longtermTime) %></td></tr>
-						<tr><th>Spontaneous Time</th><td><%= Utils.getTime(team.sponTime) %></td></tr>
-					</tbody>
-				</table>
-			</div>
-			<% if(session.authenticated && session.user) { %>
-			<ul class="list-group">
-			    <li class="list-group-item"><%- partial('flagStatus.ejs') %></li>
-			    <li class="list-group-item"><%- partial('setFlags.ejs') %></li>
-			    <li class="list-group-item">
-			    	<% if( Utils.hasRole(session.user, 'scoreRoom')) { %>
-						<a class="btn btn-warning" href="/team/edit/<%= team.id %>">Edit Team</a>  <a class="btn btn-danger" href="/team/destroy/<%= team.id %>">Delete Team</a>
-					<% } %>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 col-xs-12">
+	    <div class="panel panel-default">
+	        <div class="panel-heading">
+	            <h3>Team Info</h3>
+	        </div>
+	    	 <ul class="list-group">
+				<li class="list-group-item">
+					<table class="table">
+						<tbody>
+							<tr><th>School Name</th><td><%= team.schoolName %></td></tr>
+							<% if(team.teamLetter) { %>
+								<tr><th>Team Letter</th><td><%= team.teamLetter %></td></tr>
+							<% } %>
+							<tr><th>Membership Number</th><td><%= team.membershipNumber %></td></tr>
+							<tr><th>Problem</th><td><%= team.problem %></td></tr>
+							<tr><th>Division</th><td><%= team.division %></td></tr>
+							<tr><th>Venue</th><td><%= team.venue %></td></tr>
+							<tr><th>Longterm Time</th><td><%= Utils.getTime(team.longtermTime) %></td></tr>
+							<tr><th>Spontaneous Time</th><td><%= Utils.getTime(team.sponTime) %></td></tr>
+						</tbody>
+					</table>
 				</li>
-			 </ul>
-		<% } %>
+				<% if(session.authenticated && session.user) { %>
+				<li class="list-group-item">
+					<%- partial('flagStatus.ejs') %>
+				</li>
+				<% } %>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+			<% if(session.authenticated && session.user) { %>
+			<div class="well">
+		    	<%- partial('setFlags.ejs') %>
+		    	<% if( Utils.hasRole(session.user, 'scoreRoom')) { %>
+					<br>
+					<a class="btn btn-warning" href="/team/edit/<%= team.id %>">Edit Team</a>  
+					<a class="btn btn-danger" href="/team/destroy/<%= team.id %>">Delete Team</a>
+				<% } %>
+			</div>
+			<% } %>
+	</div>
+</div>
 
 <script type="text/javascript">
 window.onload=function () {
