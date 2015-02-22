@@ -84,7 +84,7 @@ module.exports = {
         }
       };
 
-      res.redirect('team/new');
+      res.redirect('/');
     }
   },
 

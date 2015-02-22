@@ -11,7 +11,7 @@
 </div>
 <div class="col-md-3"></div>
 <div class="col-md-6 col-xs-12">
-    <form action="/team/update" method="POST">
+    <form action="/team/update/<%= team.id %>" method="POST">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Edit Team</h3>
@@ -74,7 +74,9 @@
                 </div>
                 <input type="submit" class="btn btn-success btn-primary btn-block" value="Save Team" />
             </div>
+        </div>
     </form>
+</div>
 
 <% block('localScripts', 
     '<script src="/js/moment.min.js"></script> ' +
