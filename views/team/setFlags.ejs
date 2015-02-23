@@ -1,44 +1,52 @@
 <FORM action="/team/flag/<%= team.id %>" method="post">
 <!-- Registration Flag -->
 <% if(!team.checkedIn &&  Utils.hasRole(session.user, 'registration')) { %>
-	Registration: 
-	<INPUT type="submit" name="eventButton" value="checkedIn"> <br>
+	<strong>Registration:</strong>
+  <p>
+	   <button type="submit" class="btn btn-default  btn-xs" name="flag" value="checkedIn">Checked In</button>
+  </p>
 <% } %>
 <!-- venue Flags -->
 <% if(Utils.isValidUserForProblem(team, session.user)) { %>
   <% if(!(team.performed && team.scoresReady && team.scoresPickedUpByCoach && team.scoresPickedUpByScoreRoom)) { %>
-    Venue: 
+    <strong>Venue:</strong>
   <% } %>
+   <p>
   <% if(!team.performed) { %>
-    <INPUT type="submit" name="eventButton" value="performed">
+    <button type="submit" class="btn btn-default btn-xs" name="flag" value="performed">Performed</button>
   <% } %>
   <% if(!team.scoresReady) { %>
-    <INPUT type="submit" name="eventButton" value="scoresReady">
+    <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresReady">Scores Ready</button>
   <% } %>
   <% if(!team.scoresPickedUpByCoach) { %>
-    <INPUT type="submit" name="eventButton" value="scoresPickedUpByCoach">
+    <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByCoach">Coach Picked Up Scores</button>
   <% } %>
   <% if(!team.scoresPickedUpByScoreRoom) { %>
-    <INPUT type="submit" name="eventButton" value="scoresPickedUpByScoreRoom"> <br>
+    <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByScoreRoom">Score Room Picked Up Scores</button> <br>
   <% } %>
+  </p>
 <% } %>
 
 <!-- Score Room Flag -->
 <% if(!team.scoresAccepted && Utils.hasRole(session.user, 'scoreRoom')) { %>
-	Score Room:
-	<a href=""></a><INPUT type="submit" name="eventButton" value="scoresAccepted"><br>
+	<strong>Score Room:</strong>
+  <p>
+	 <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresAccepted">Scores Accepted</button><br>
+  </p>
 <% } %>
 
 <!-- Spontaneous Flags -->
 <% if(Utils.hasRole(session.user, 'spontaneous')) { %>
   <% if(!(team.sponCheckedIn && team.sponCompleted)) { %>
-  	Spontaneous: 
+  	<strong>Spontaneous:</strong>
   <% } %>
+  <p>
   <% if(!team.sponCheckedIn) { %>
-  	<a href=""></a><INPUT type="submit" name="eventButton" value="sponCheckedIn">
+  	<button type="submit" class="btn btn-default  btn-xs" name="flag" value="sponCheckedIn">Spontaneous Checked In</button>
   <% } %>
   <% if(!team.sponCompleted) { %>
-  	<a href=""></a><INPUT type="submit" name="eventButton" value="sponCompleted">
+  	<button type="submit" class="btn btn-default  btn-xs" name="flag" value="sponCompleted">Spontaneous Completed</button>
   <% } %>
+</p>
 <% } %>
 </FORM>

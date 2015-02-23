@@ -33,5 +33,20 @@ module.exports = {
       return '';
 
     return moment(date).format('MM/DD/YYYY h:mm a');
+  },
+
+  hasFlags: function(team) {
+    if (team.checkedIn ||
+      team.performed ||
+      team.scoresReady ||
+      team.scoresPickedUpByCoach ||
+      team.scoresPickedUpByScoreRoom ||
+      team.scoresAccepted ||
+      team.sponCheckedIn ||
+      team.sponCompleted) {
+      return true;
+    }
+
+    return false;
   }
 };

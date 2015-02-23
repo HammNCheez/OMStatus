@@ -22,7 +22,7 @@
 						</tbody>
 					</table>
 				</li>
-				<% if(session.authenticated && session.user) { %>
+				<% if(session.authenticated && session.user && Utils.hasFlags(team)) { %>
 				<li class="list-group-item">
 					<%- partial('flagStatus.ejs') %>
 				</li>
@@ -39,8 +39,12 @@
 		    	<%- partial('setFlags.ejs') %>
 		    	<% if( Utils.hasRole(session.user, 'scoreRoom')) { %>
 					<br>
-					<a class="btn btn-warning" href="/team/edit/<%= team.id %>">Edit Team</a>  
-					<a class="btn btn-danger" href="/team/destroy/<%= team.id %>">Delete Team</a>
+					<a class="btn btn-warning btn-xs" href="/team/edit/<%= team.id %>">
+						<span class="glyphicon glyphicon-pencil"></span> Edit Team
+					</a>  
+					<a class="btn btn-danger btn-xs" href="/team/destroy/<%= team.id %>">
+						<span class="glyphicon glyphicon-trash"></span> Delete Team
+					</a>
 				<% } %>
 			</div>
 			<% } %>

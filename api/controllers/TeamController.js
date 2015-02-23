@@ -121,7 +121,7 @@ module.exports = {
 
     var update = {};
 
-    switch (team.eventButton) {
+    switch (team.flag) {
       case "checkedIn":
         update.checkedIn = new Date();
         break;
