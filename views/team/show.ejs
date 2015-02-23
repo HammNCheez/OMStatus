@@ -1,6 +1,5 @@
 <div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-6 col-xs-12">
+	<div class="col-md-6 col-md-offset-3 col-xs-12">
 	    <div class="panel panel-default">
 	        <div class="panel-heading">
 	            <h3>Team Info</h3>
@@ -32,8 +31,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
+	<div class="col-md-8 col-md-offset-2">
 			<% if(session.authenticated && session.user) { %>
 			<div class="well">
 		    	<%- partial('setFlags.ejs') %>
