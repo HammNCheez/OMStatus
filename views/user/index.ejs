@@ -6,34 +6,34 @@
 		    	<h3 class="panel-title">Users</h3>
 		  	</div>
 			<div class="list-group" data-bind='foreach: users'>
-				<a class="list-group-item" data-bind='text: name, click: $parent.getUserAssignedRoles'></a>
+				<a class="list-group-item" data-bind='text: name, click: $parent.getUserAssignedRoles, css: {active: $parent.isActive(name) }'></a>
 			</div>
 		</div>
 	</div>
 	<!-- Assigned Roles -->
 	<div class='col-md-4'>
-		<div class="panel panel-success">
+		<div class="panel panel-warning">
 			<div class="panel-heading">
 		    	<h3 class="panel-title">Assigned Roles</h3>
 		  	</div>
 			<div class="list-group" data-bind='foreach: assignedRoles'>
 				<div class='list-group-item'>	
 					<span data-bind='text: $data'></span>			
-					<span class="pull-right glyphicon glyphicon-minus text-danger"></span>			
+					<span class="pull-right glyphicon glyphicon-minus text-danger" data-bind="click: $parent.removeRole, visible: $parent.selectedUser().roles.length > 0"></span>			
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Available Roles -->	
 	<div class='col-md-4'>
-		<div class="panel panel-warning">
+		<div class="panel panel-success">
 			<div class="panel-heading">
 		    	<h3 class="panel-title">Available Roles</h3>
 		  	</div>
 			<div class="list-group" data-bind='foreach: availableRoles'>
 				<div class='list-group-item'>	
 					<span data-bind='text: $data'></span>			
-					<span class="pull-right glyphicon glyphicon-plus text-success"></span>			
+					<span class="pull-right glyphicon glyphicon-plus text-success" data-bind="click: $parent.addRole"></span>			
 				</div>
 			</div>
 		</div>
@@ -58,6 +58,7 @@ var userViewModel = function() {
 	self.roles = ko.observableArray();
 	self.assignedRoles = ko.observableArray();
 	self.availableRoles = ko.observableArray();
+	self.selectedUser = ko.observable();
 
 	self.initialize = function(){
 		self.getUsers();
@@ -85,6 +86,8 @@ var userViewModel = function() {
 	};
 
 	self.getUserAssignedRoles = function (user) {
+		self.selectedUser(user);
+
 		self.assignedRoles.removeAll();
 		self.assignedRoles.push.apply(self.assignedRoles, user.roles.map(function(role) { return role.toLowerCase();}));
 
@@ -94,6 +97,40 @@ var userViewModel = function() {
 		
 		self.availableRoles.removeAll();
 		self.availableRoles.push.apply(self.availableRoles, diff);
+	};
+
+	self.addRole = function(role) {
+		self.availableRoles.remove(role);
+		self.assignedRoles.push(role);
+		self.assignedRoles.sort();
+
+		self.selectedUser().roles.push(role);
+
+		$.ajax({
+			url: '/user/update/' + self.selectedUser().id,
+			data: self.selectedUser()
+		})
+	};
+
+	self.removeRole = function(role) {
+		self.assignedRoles.remove(role);
+		self.availableRoles.push(role);
+		self.availableRoles.sort(role);
+
+		self.selectedUser().roles.splice(self.selectedUser().roles.indexOf(role));
+
+		$.ajax({
+			url: '/user/update/' + self.selectedUser().id,
+			data: self.selectedUser()
+		})
+	};
+
+	self.isActive = function(userName) {
+		if (self.selectedUser() === null || self.selectedUser() === undefined) {
+			return false;
+		}
+
+		return self.selectedUser().name === userName;
 	};
 
 	self.initialize();
