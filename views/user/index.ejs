@@ -1,42 +1,40 @@
-<!--<h1>Users</h1>
- <table border=1>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Roles</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% for(var i = 0; i < users.length; i++) { %>
-			<tr>
-				<td><a href="/user/show/<%= users[i].id %>"><%= users[i].name %></a></td>
-				<td>
-					<% for(var j = 0; j < users[i].roles.length; j++) { %>
-					<%= users[i].roles[j] %><br>
-					<% } %>
-				</td>
-			</tr>
-		<% } %>
-	</tbody>
-</table> -->
 <div class='row'>
+	<!-- User/Group -->
 	<div class='col-md-4'>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 		    	<h3 class="panel-title">Users</h3>
 		  	</div>
 			<div class="list-group" data-bind='foreach: users'>
-				<a class="list-group-item" data-bind='text: name, click: $parent.getRoles'></a>
+				<a class="list-group-item" data-bind='text: name, click: $parent.getUserAssignedRoles'></a>
 			</div>
 		</div>
 	</div>
+	<!-- Assigned Roles -->
 	<div class='col-md-4'>
 		<div class="panel panel-success">
 			<div class="panel-heading">
-		    	<h3 class="panel-title">Roles</h3>
+		    	<h3 class="panel-title">Assigned Roles</h3>
 		  	</div>
-			<div class="list-group" data-bind='foreach: roles'>
-				<a class="list-group-item" data-bind='text: $data'></a>
+			<div class="list-group" data-bind='foreach: assignedRoles'>
+				<div class='list-group-item'>	
+					<span data-bind='text: $data'></span>			
+					<span class="pull-right glyphicon glyphicon-minus text-danger"></span>			
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Available Roles -->	
+	<div class='col-md-4'>
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+		    	<h3 class="panel-title">Available Roles</h3>
+		  	</div>
+			<div class="list-group" data-bind='foreach: availableRoles'>
+				<div class='list-group-item'>	
+					<span data-bind='text: $data'></span>			
+					<span class="pull-right glyphicon glyphicon-plus text-success"></span>			
+				</div>
 			</div>
 		</div>
 	</div>
@@ -44,7 +42,7 @@
 <a href="/user/new">Add New User</a>
 
 <script type="text/javascript" src='js/knockout-3.3.0.js'></script>
-<script type="text/javascript" src='js/jquery-1.11.2.min.js'></script>
+<!-- <script type="text/javascript" src='js/jquery-1.11.2.min.js'></script> -->
 
 <script type="text/javascript">
 window.onload=function () {
@@ -58,6 +56,13 @@ var userViewModel = function() {
 
 	self.users = ko.observableArray();
 	self.roles = ko.observableArray();
+	self.assignedRoles = ko.observableArray();
+	self.availableRoles = ko.observableArray();
+
+	self.initialize = function(){
+		self.getUsers();
+		self.getRoles();
+	};
 
 	self.getUsers = function() {
 		$.ajax({
@@ -67,12 +72,31 @@ var userViewModel = function() {
 		});
 	};
 
-	self.getRoles = function (user) {
-		self.roles.removeAll();
-		self.roles.push.apply(self.roles, user.roles);
+	self.getRoles = function() {
+		$.ajax({
+			url: '/role/getRoles'
+		}).success(function(data){
+
+			var mappedData = data.map(function(role) {
+				return role.name;
+			})
+			self.roles.push.apply(self.roles, mappedData);
+		});
 	};
 
-	self.getUsers();
+	self.getUserAssignedRoles = function (user) {
+		self.assignedRoles.removeAll();
+		self.assignedRoles.push.apply(self.assignedRoles, user.roles.map(function(role) { return role.toLowerCase();}));
+
+		var diff = self.roles().filter(function(role) {
+			return self.assignedRoles.indexOf(role.toLowerCase()) === -1;
+		});
+		
+		self.availableRoles.removeAll();
+		self.availableRoles.push.apply(self.availableRoles, diff);
+	};
+
+	self.initialize();
 }
 
 ko.applyBindings(new userViewModel());
