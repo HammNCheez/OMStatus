@@ -1,52 +1,76 @@
 <FORM action="/team/flag/<%= team.id %>" method="post">
 <!-- Registration Flag -->
 <% if(!team.checkedIn &&  Utils.hasRole(session.user, 'registration')) { %>
-	<strong>Registration:</strong>
-  <p>
-	   <button type="submit" class="btn btn-default  btn-xs" name="flag" value="checkedIn">Checked In</button>
-  </p>
+  <div class="row">
+    <div class="col-xs-12">
+	    <strong>Registration:</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
+	    <button type="submit" class="btn btn-default  btn-xs" name="flag" value="checkedIn">Checked In</button>
+    </div>
+  </div>
 <% } %>
 <!-- venue Flags -->
 <% if(Utils.isValidUserForProblem(team, session.user)) { %>
   <% if(!(team.performed && team.scoresReady && team.scoresPickedUpByCoach && team.scoresPickedUpByScoreRoom)) { %>
-    <strong>Venue:</strong>
+  <div class="row">
+    <div class="col-xs-12">
+      <strong>Venue:</strong>
+    </div>
+  </div>
   <% } %>
-   <p>
-  <% if(!team.performed) { %>
-    <button type="submit" class="btn btn-default btn-xs" name="flag" value="performed">Performed</button>
-  <% } %>
-  <% if(!team.scoresReady) { %>
-    <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresReady">Scores Ready</button>
-  <% } %>
-  <% if(!team.scoresPickedUpByCoach) { %>
-    <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByCoach">Coach Picked Up Scores</button>
-  <% } %>
-  <% if(!team.scoresPickedUpByScoreRoom) { %>
-    <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByScoreRoom">Score Room Picked Up Scores</button> <br>
-  <% } %>
-  </p>
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
+      <% if(!team.performed) { %>
+      <button type="submit" class="btn btn-default btn-xs" name="flag" value="performed">Performed</button>
+      <% } %>
+      <% if(!team.scoresReady) { %>
+      <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresReady">Scores Ready</button>
+      <% } %>
+      <% if(!team.scoresPickedUpByCoach) { %>
+      <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByCoach">Coach Picked Up Scores</button>
+      <% } %>
+      <% if(!team.scoresPickedUpByScoreRoom) { %>
+      <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByScoreRoom">Score Room Picked Up Scores</button> <br>
+      <% } %>
+    </div>
+  </div>
 <% } %>
 
 <!-- Score Room Flag -->
 <% if(!team.scoresAccepted && Utils.hasRole(session.user, 'scoreRoom')) { %>
-	<strong>Score Room:</strong>
-  <p>
+  <div class="row">
+    <div class="col-xs-12">
+      <strong>Score Room:</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
 	 <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresAccepted">Scores Accepted</button><br>
-  </p>
+  </div>
+</div>
 <% } %>
 
 <!-- Spontaneous Flags -->
 <% if(Utils.hasRole(session.user, 'spontaneous')) { %>
   <% if(!(team.sponCheckedIn && team.sponCompleted)) { %>
-  	<strong>Spontaneous:</strong>
+  	<div class="row">
+      <div class="col-xs-12">
+        <strong>Score Room:</strong>
+      </div>
+    </div>
   <% } %>
-  <p>
-  <% if(!team.sponCheckedIn) { %>
-  	<button type="submit" class="btn btn-default  btn-xs" name="flag" value="sponCheckedIn">Spontaneous Checked In</button>
-  <% } %>
-  <% if(!team.sponCompleted) { %>
-  	<button type="submit" class="btn btn-default  btn-xs" name="flag" value="sponCompleted">Spontaneous Completed</button>
-  <% } %>
-</p>
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
+      <% if(!team.sponCheckedIn) { %>
+    	<button type="submit" class="btn btn-default  btn-xs" name="flag" value="sponCheckedIn">Spontaneous Checked In</button>
+      <% } %>
+      <% if(!team.sponCompleted) { %>
+    	<button type="submit" class="btn btn-default  btn-xs" name="flag" value="sponCompleted">Spontaneous Completed</button>
+      <% } %>
+    </div>
+  </div>
 <% } %>
 </FORM>
