@@ -1,58 +1,83 @@
 <div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-6 col-xs-12">
-	    <div class="panel panel-default">
-	        <div class="panel-heading">
-	            <h3>Team Info</h3>
-	        </div>
-	    	 <ul class="list-group">
-				<li class="list-group-item">
-					<table class="table">
-						<tbody>
-							<tr><th>School Name</th><td><%= team.schoolName %></td></tr>
-							<% if(team.teamLetter) { %>
-								<tr><th>Team Letter</th><td><%= team.teamLetter %></td></tr>
-							<% } %>
-							<tr><th>Membership Number</th><td><%= team.membershipNumber %></td></tr>
-							<tr><th>Problem</th><td><%= team.problem %></td></tr>
-							<tr><th>Division</th><td><%= team.division %></td></tr>
-							<tr><th>Venue</th><td><%= team.venue %></td></tr>
-							<tr><th>Longterm Time</th><td><%= Utils.getTime(team.longtermTime) %></td></tr>
-							<tr><th>Spontaneous Time</th><td><%= Utils.getTime(team.sponTime) %></td></tr>
-						</tbody>
-					</table>
-				</li>
-				<% if(session.authenticated && session.user && Utils.hasFlags(team)) { %>
-				<li class="list-group-item">
-					<%- partial('flagStatus.ejs') %>
-				</li>
+	<div class="col-md-6 col-md-offset-3">
+	 <div class="panel panel-default">
+        <div class="panel-heading">
+            Team Info
+        </div>
+        <table class="table table-responsive table-striped" data-bind='with: team'>
+			<tbody>
+				<tr>
+					<th>School Name</th>
+					<td><span data-bind='text: schoolName'></span></td>
+				</tr>
+				<% if(team.teamLetter) { %>
+					<tr>
+						<th>Team Letter</th>
+						<td><span data-bind='text: teamLetter'></td>
+					</tr>
 				<% } %>
-			</ul>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-			<% if(session.authenticated && session.user) { %>
-			<div class="well">
-		    	<%- partial('setFlags.ejs') %>
-		    	<% if( Utils.hasRole(session.user, 'scoreRoom')) { %>
-					<br>
-					<a class="btn btn-warning btn-xs" href="/team/edit/<%= team.id %>">
-						<span class="glyphicon glyphicon-pencil"></span> Edit Team
-					</a>  
-					<a class="btn btn-danger btn-xs" href="/team/destroy/<%= team.id %>">
-						<span class="glyphicon glyphicon-trash"></span> Delete Team
-					</a>
-				<% } %>
+				<tr>
+					<th>Membership Number</th>
+					<td><span data-bind='text: membershipNumber'></td>
+				</tr>
+				<tr>
+					<th>Problem</th>
+					<td><span data-bind='text: problem'></td>
+				</tr>
+				<tr>
+					<th>Division</th>
+					<td><span data-bind='text: division'></td>
+				</tr>
+				<tr>
+					<th>Venue</th>
+					<td><span data-bind='text: venue'></td>
+				</tr>
+				<tr>
+					<th>Longterm Time</th>
+					<td><span data-bind='text: longtermTime'>
+						<%= Utils.getTime(team.longtermTime) %>
+					</td>
+				</tr>
+				<tr>
+					<th>Spontaneous Time</th>
+					<td>
+						<span data-bind='text: sponTime'>
+						<%= Utils.getTime(team.sponTime) %>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<%- partial('flagStatus.ejs') %>
+			</li>
+		</ul>
+		<% if(session.authenticated && session.user) { %>
+			<div class="panel-body">
+				<div >
+			    	<%- partial('setFlags.ejs') %>
+			    	<% if( Utils.hasRole(session.user, 'scoreRoom')) { %>
+						<br>
+						<a class="btn btn-warning btn-xs" href="/team/edit/<%= team.id %>">
+							<span class="glyphicon glyphicon-pencil"></span> Edit Team
+						</a>  
+						<a class="btn btn-danger btn-xs" href="/team/destroy/<%= team.id %>">
+							<span class="glyphicon glyphicon-trash"></span> Delete Team
+						</a>
+					<% } %>
+				</div>
 			</div>
-			<% } %>
+		<% } %>
 	</div>
 </div>
 
+
+<script type="text/javascript" src="/js/lib/require.js"></script>
 <script type="text/javascript">
-window.onload=function () {
-    $("#p<%= team.problem %>Link").addClass('active');
-};
+	require(['/js/app/common_settings.js'], function(common) {
+		require(['knockout', 'app/team_show/viewModel'], function(ko, vm) {
+			ko.applyBindings(new vm('<%- team.id %>'));
+			$("#p<%= team.problem %>Link").addClass('active');
+		});
+	});
 </script>

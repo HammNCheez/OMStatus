@@ -42,8 +42,13 @@
 	<a href="/team/new?problem=<%= probNum %>">Add New Team</a>
 <% } %>
 
+<script type="text/javascript" src="/js/lib/require.js"></script>
 <script type="text/javascript">
-window.onload=function () {
-    $("#p<%= probNum %>Link").addClass('active');
-};
+	define('problem_show', ['jquery'], function($) {
+		return $("#p<%= probNum %>Link").addClass('active');
+	});
+	require(['/js/app/common_settings.js'], function(common) {
+		require(['problem_show']);
+	});
+	
 </script>
