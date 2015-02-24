@@ -2,43 +2,10 @@
 
 <div class="row">
 	<div class="col-xs-12">
-		<% for(var i = 0; i < venues.length; i++) { %>
-		<h3>Venue <%= venues[i][0].venue %></h3>
-		<table class="table table-bordered table-striped">
-			<thead>
-				<tr>
-					<th>Membership #</th>
-					<th>Team</th>
-					<th><a href="/problem/<%= probNum %>?sort=longTerm">Longterm</a></th>
-					<th><a href="/problem/<%= probNum %>?sort=spontaneous">Spontaneous</a></th>
-					<% if(Utils.hasRole(session.user, 'registration')) { %>
-					<th></th>
-					<% } %>
-				</tr>
-			</thead>
-			<tbody>
-				<% for(var j = 0; j < venues[i].length; j++) { %>
-					<tr>
-						<td><%= venues[i][j].membershipNumber %></td>
-						<td><a href="/team/show/<%= venues[i][j].id %>"><%= venues[i][j].schoolName %> 
-						<% if(venues[i][j].teamLetter) { %>
-							: <%= venues[i][j].teamLetter %>
-						<% } %>
-						</a><br>
-							<%= venues[i][j].division %></td>
-						<td><%= Utils.getTime(venues[i][j].longtermTime) %></td>
-						<td><%= Utils.getTime(venues[i][j].sponTime) %></td>
-						<% if(Utils.hasRole(session.user, 'registration')) { %>
-						<td>
-							<% if(!venues[i][j].checkedIn) { %>
-							<a class="btn btn-success btn-xs" href="/team/checkIn/<%= venues[i][j].id %>?problem=<%= probNum %>">Check-in</a>
-							<% } %>
-						</td>
-						<% } %>
-					</tr>
-				<% } %>
-			</tbody>
-		</table>
+		<% if(req.session.authenticated && Utils.hasRole(req.session.user, 'registration')) { %>
+		<%- partial('registration-grid.ejs') %>
+		<% } else { %>
+		<%- partial('standard-grid.ejs') %>
 		<% } %>
 	</div>
 </div>
@@ -52,4 +19,4 @@
 window.onload=function () {
     $("#p<%= probNum %>Link").addClass('active');
 };
-</script>
+</script>?
