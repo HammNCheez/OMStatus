@@ -50,7 +50,7 @@ module.exports.routes = {
 
   '/logout': 'AuthController.destroy',
 
-  '/problem/primary' : 'ProblemController.primary',
+  '/problem/P' : 'ProblemController.primary',
 
   '/problem/:id': {
     controller: 'ProblemController',

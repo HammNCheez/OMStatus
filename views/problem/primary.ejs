@@ -27,7 +27,7 @@
 							<% if(Utils.hasRole(session.user, 'registration')) { %>
 							<td>
 								<% if(!venues[i][j].checkedIn) { %>
-								<a class="btn btn-success" href="/team/checkIn/<%= venues[i][j].id %>?problem=p">Check-in</a>
+								<a class="btn btn-success" href="/team/checkIn/<%= venues[i][j].id %>?problem=P">Check-in</a>
 								<% } %>
 							</td>
 							<% } %>
@@ -42,7 +42,7 @@
 	</div>
 </div>
 <% if(Utils.hasRole(session.user, 'scoreRoom')) { %>
-	<a href="/team/new?problem=p" class="btn btn-default btn-s">
+	<a href="/team/new?problem=P" class="btn btn-default btn-s">
 		<span class="glyphicon glyphicon-plus"></span> Add New Team
 	</a>
 <% } %>
