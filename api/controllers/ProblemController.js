@@ -62,7 +62,7 @@ module.exports = {
   primary: function(req, res){
     Team.find({
         where: {
-          problem: 'primary'
+          problem: 'p'
         },
         sort: {venue: 1, longtermTime: 1}
       }).exec(function(err, teams) {

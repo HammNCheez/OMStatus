@@ -1,16 +1,48 @@
 <h1>Primary</h1>
-
 <div class="row">
 	<div class="col-xs-12">
-		<% if(req.session.authenticated && Utils.hasRole(req.session.user, 'registration')) { %>
-		<%- partial('registration-grid.ejs') %>
+		<% if (venues.length > 0) { %>
+			<% for(var i = 0; i < venues.length; i++) { %>
+			<h3>Venue <%= venues[i][0].venue %></h3>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Membership #</th>
+						<th>Team</th>
+						<th>Longterm</th>
+						<% if(Utils.hasRole(session.user, 'registration')) { %>
+						<th></th>
+						<% } %>
+					</tr>
+				</thead>
+				<tbody>
+					<% for(var j = 0; j < venues[i].length; j++) { %>
+						<tr>
+							<td><%= venues[i][j].membershipNumber %></td>
+							<td><a href="/team/show/<%= venues[i][j].id %>"><%= venues[i][j].schoolName %> 
+							<% if(venues[i][j].teamLetter) { %>
+							 : <%= venues[i][j].teamLetter %>
+							<% } %></a></td>
+							<td><%= Utils.getTime(venues[i][j].longtermTime) %></td>
+							<% if(Utils.hasRole(session.user, 'registration')) { %>
+							<td>
+								<% if(!venues[i][j].checkedIn) { %>
+								<a class="btn btn-success" href="/team/checkIn/<%= venues[i][j].id %>?problem=p">Check-in</a>
+								<% } %>
+							</td>
+							<% } %>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+			<% } %>
 		<% } else { %>
-		<%- partial('standard-grid.ejs') %>
+		<p>There are no teams for this problem.</p>
 		<% } %>
 	</div>
 </div>
 <% if(Utils.hasRole(session.user, 'scoreRoom')) { %>
-	<a href="/team/new?problem=<%= probNum %>" class="btn btn-default btn-s">
+	<a href="/team/new?problem=p" class="btn btn-default btn-s">
 		<span class="glyphicon glyphicon-plus"></span> Add New Team
 	</a>
 <% } %>
@@ -19,4 +51,4 @@
 window.onload=function () {
     $("#pLink").addClass('active');
 };
-</script>?
+</script>
