@@ -18,9 +18,11 @@ module.exports = {
     if (req.session.user && (UtilityService.hasRole(req.session.user, 'scoreRoom') || req.session.user.admin)) {
       var team = req.params.all();
 
-      team.longtermTime = new Date(team.longtermTime);
+      if(team.longtermTime)
+        team.longtermTime = new Date(team.longtermTime);
 
-      team.sponTime = new Date(team.sponTime);
+      if(team.sponTime)
+        team.sponTime = new Date(team.sponTime);
 
       Team.create(team).exec(function(err, team) {
         if (err) {

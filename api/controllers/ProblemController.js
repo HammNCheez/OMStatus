@@ -57,5 +57,36 @@ module.exports = {
         });
       });
     })(problem.id, sort);
+  },
+
+  primary: function(req, res){
+    Team.find({
+        where: {
+          problem: 'P'
+        },
+        sort: {venue: 1, longtermTime: 1}
+      }).exec(function(err, teams) {
+        if (err) return next(err);
+        if (!teams) return next();
+        
+        var _ = require("underscore");
+
+        var venues = _.uniq(teams, false, function(team) {
+          return team.venue;
+        });
+
+        var sortedTeams = [];
+        for (var i = 0; i < venues.length; i++) {
+          var venue = _.where(teams, {
+            venue: venues[i].venue
+          });
+          sortedTeams.push(venue);
+        }
+
+        res.view({
+          venues: sortedTeams,
+          Utils: UtilityService
+        });
+      });
   }
 };
