@@ -13,6 +13,22 @@
 		<% } %>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-xs-4">
+		<table class="table">
+			
+			<tr>
+				<td class="warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+				<td>Indicates scores are ready to be picked up.</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+</div>
 <% if(Utils.hasRole(session.user, 'scoreRoom')) { %>
 	<a href="/team/new?problem=<%= probNum %>" class="btn btn-default btn-s">
 		<span class="glyphicon glyphicon-plus"></span> Add New Team

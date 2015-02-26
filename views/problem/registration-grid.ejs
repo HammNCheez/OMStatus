@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             <% for(var j=0 ; j < venues[i].length; j++) { %>
-                <tr>
+                <tr <%- (venues[i][j].scoresReady) ? 'class="warning"': '' %>>
                     <td>
                         <%= venues[i][j].membershipNumber %>
                     </td>
@@ -30,8 +30,17 @@
                         <%= venues[i][j].division %>
                     </td>
                     <td>
-                        <%= Utils.getTime(venues[i][j].longtermTime) %> /
+                        <%if (!venues[i][j].performed) { %>
+                            <%= Utils.getTime(venues[i][j].longtermTime) %>
+                        <% } else { %>
+                            <span class="glyphicon glyphicon-ok"></span>
+                        <% } %>
+                         /
+                        <%if (!venues[i][j].sponCompleted) { %>
                             <%= Utils.getTime(venues[i][j].sponTime) %>
+                        <% } else { %>
+                            <span class="glyphicon glyphicon-ok"></span>
+                        <% } %>
                     </td>
                     <% if(Utils.hasRole(session.user, 'registration')) { %>
                         <td>
