@@ -1,0 +1,22 @@
+<h1>Primary</h1>
+
+<div class="row">
+	<div class="col-xs-12">
+		<% if(req.session.authenticated && Utils.hasRole(req.session.user, 'registration')) { %>
+		<%- partial('registration-grid.ejs') %>
+		<% } else { %>
+		<%- partial('standard-grid.ejs') %>
+		<% } %>
+	</div>
+</div>
+<% if(Utils.hasRole(session.user, 'scoreRoom')) { %>
+	<a href="/team/new?problem=<%= probNum %>" class="btn btn-default btn-s">
+		<span class="glyphicon glyphicon-plus"></span> Add New Team
+	</a>
+<% } %>
+
+<script type="text/javascript">
+window.onload=function () {
+    $("#pLink").addClass('active');
+};
+</script>?
