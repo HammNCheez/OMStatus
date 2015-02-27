@@ -256,7 +256,7 @@ module.exports = {
             };
           }
 
-          res.redirect('/team/show/' + req.param('id'));
+          res.json({team: object});
         }
       );
     });

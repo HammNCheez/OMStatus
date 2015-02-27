@@ -34,24 +34,61 @@
 				</tr>
 				<tr>
 					<th>Longterm Time</th>
-					<td><span data-bind='text: longtermTime'>
-						<%= Utils.getTime(team.longtermTime) %>
+					<td>
+						<span data-bind="date: longtermTime, format: 'h:mm a'"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>Spontaneous Time</th>
 					<td>
-						<span data-bind='text: sponTime'>
-						<%= Utils.getTime(team.sponTime) %>
+						<span data-bind="date: sponTime, format: 'h:mm a'"></span>
+					</td>
+				</tr>
+				<tr  data-bind="visible: $parent.showRow('checkedIn')">
+					<td>Checked in at</td>
+					<td>
+						<span data-bind="date: checkedIn, format: 'h:mm a'"></span>
+						<a href="/team/removeFlag/<%= team.id %>?flag=scoresPickedUpByCoach">Remove</a>
+					</td>
+				</tr>
+				<tr  data-bind="visible: $parent.showRow('performed')">
+					<td>Performed at</td>
+					<td>
+						<span data-bind="date: performed, format: 'h:mm a'"></span>
+					</td>
+				</tr>
+				<tr  data-bind="visible: $parent.showRow('scoresReady')">
+					<td>Scores ready at</td>
+					<td>
+						<span data-bind="date: scoresReady, format: 'h:mm a'"></span>
+					</td>
+				</tr>
+				<tr  data-bind="visible: $parent.showRow('scoresPickedUpByCoach')">
+					<td>Scores picked up by coach at</td>
+					<td>
+						<span data-bind="date: scoresPickedUpByCoach, format: 'h:mm a'"></span>
+					</td>
+				</tr>
+				<tr  data-bind="visible: $parent.showRow('scoresAccepted')">
+					<td>Scores accepted by scoreroom at</td>
+					<td>
+						<span data-bind="date: scoresAccepted, format: 'h:mm a'"></span>
+					</td>
+				</tr>
+				<tr  data-bind="visible: $parent.showRow('sponCheckedIn')">
+					<td>Spontaneous checked in at</td>
+					<td>
+						<span data-bind="date: sponCheckedIn, format: 'h:mm a'"></span>
+					</td>
+				</tr>
+				<tr  data-bind="visible: $parent.showRow('sponCompleted')">
+					<td>Spontaneous completed at</td>
+					<td>
+						<span data-bind="date: sponCompleted, format: 'h:mm a'"></span>
 					</td>
 				</tr>
 			</tbody>
-		</table>
-		<ul class="list-group">
-			<li class="list-group-item">
-				<%- partial('flagStatus.ejs') %>
-			</li>
-		</ul>
+		</table>		
 		<% if(session.authenticated && session.user) { %>
 			<div class="panel-body">
 				<div >
@@ -76,8 +113,7 @@
 <script type="text/javascript">
 	require(['/js/app/common_settings.js'], function(common) {
 		require(['knockout', 'app/team_show/viewModel'], function(ko, vm) {
-			ko.applyBindings(new vm('<%- team.id %>'));
-			$("#p<%= team.problem %>Link").addClass('active');
+			ko.applyBindings(new vm('<%- team.id %>', 'problem1'));			
 		});
 	});
 </script>

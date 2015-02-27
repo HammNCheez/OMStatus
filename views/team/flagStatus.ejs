@@ -1,11 +1,4 @@
 <!-- Registration Flag -->
-<% if(team.checkedIn) { %>
-	Checked in at : <%= Utils.getTime(team.checkedIn) %> 
-	<% if( Utils.hasRole(session.user, 'registration')) { %>
-		<a href="/team/removeFlag/<%= team.id %>?flag=checkedIn">Remove</a>
-	<% } %>
-	<br>
-<% } %>
 
 <!-- Venue Flags -->
 <% if(team.performed) { %>
