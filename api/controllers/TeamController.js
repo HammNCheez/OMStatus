@@ -127,6 +127,9 @@ module.exports = {
       case "checkedIn":
         update.checkedIn = new Date();
         break;
+      case "noShow":
+        update.noShow = new Date();
+        break;
       case "performed":
         update.performed = new Date();
         break;
@@ -192,6 +195,13 @@ module.exports = {
         update = {
           $unset: {
             checkedIn: 1
+          }
+        };
+        break;
+      case "noShow":
+        update = {
+          $unset: {
+            noShow: 1
           }
         };
         break;

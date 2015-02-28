@@ -39,6 +39,9 @@ module.exports = {
     checkedIn: {
       type: 'datetime'
     },
+    noShow: {
+      type: 'datetime'
+    },
     performed: {
       type: 'datetime'
     },

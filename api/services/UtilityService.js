@@ -42,6 +42,7 @@ module.exports = {
 
   hasFlags: function(team) {
     if (team.checkedIn ||
+      team.noShow ||
       team.performed ||
       team.scoresReady ||
       team.scoresPickedUpByCoach ||

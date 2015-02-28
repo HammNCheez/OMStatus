@@ -8,6 +8,14 @@
 <% } %>
 
 <!-- Venue Flags -->
+<% if(team.noShow) { %>
+	No Show at : <%= Utils.getTime(team.noShow) %>
+	<% if( Utils.isValidUserForProblem(team, session.user)) { %>
+		<a href="/team/removeFlag/<%= team.id %>?flag=noShow">Remove</a>
+	<% } %>
+	<br>
+<% } %>
+
 <% if(team.performed) { %>
 	Performed at : <%= Utils.getTime(team.performed) %>
 	<% if( Utils.isValidUserForProblem(team, session.user)) { %>

@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             <% for(var j=0 ; j < venues[i].length; j++) { %>
-                <tr <%- (venues[i][j].scoresReady) ? 'class="warning"': '' %>>
+                <tr class="<%- (venues[i][j].scoresReady) ? ' warning ': '' %><%- (venues[i][j].noShow) ? ' danger ' : ''%>">
                     <td>
                         <%= venues[i][j].membershipNumber %>
                     </td>
