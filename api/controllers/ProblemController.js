@@ -35,58 +35,81 @@ module.exports = {
       }).exec(function(err, teams) {
         if (err) return next(err);
         if (!teams) return next();
-        
+
         var _ = require("underscore");
 
-        var venues = _.uniq(teams, false, function(team) {
-          return team.venue;
+        //get unique divisions
+        var divisions = _.uniq(teams, false, function(team) {
+          return team.division;
         });
 
-        var sortedTeams = [];
-        for (var i = 0; i < venues.length; i++) {
-          var venue = _.where(teams, {
-            venue: venues[i].venue
+        var getVenue = function(team) {
+          return team.venue;
+        };
+
+        var sortedDivs = [];
+        for (var i = 0, len = divisions.length; i < len; i++) {
+          //get all teams in this division
+          var division = _.where(teams, {
+            division: divisions[i].division
           });
-          sortedTeams.push(venue);
+
+          var sortedDiv = [];
+
+          //get unique venues
+          var venues = _.uniq(division, false, getVenue);
+
+          for (var j = 0, venLen = venues.length; j < venLen; j++) {
+            var venue = _.where(division, {
+              venue: venues[j].venue
+            });
+
+            sortedDiv.push(_.sortBy(venue, 'longtermTime'));
+
+          }
+          sortedDivs.push(sortedDiv);
         }
 
         res.view({
           probNum: id,
-          venues: sortedTeams,
+          venues: sortedDivs,
           Utils: UtilityService
         });
       });
     })(problem.id, sort);
   },
 
-  primary: function(req, res){
+  primary: function(req, res) {
     Team.find({
-        where: {
-          problem: 'P'
-        },
-        sort: {venue: 1, longtermTime: 1}
-      }).exec(function(err, teams) {
-        if (err) return next(err);
-        if (!teams) return next();
-        
-        var _ = require("underscore");
+      where: {
+        problem: 'P'
+      },
+      sort: {
+        venue: 1,
+        longtermTime: 1
+      }
+    }).exec(function(err, teams) {
+      if (err) return next(err);
+      if (!teams) return next();
 
-        var venues = _.uniq(teams, false, function(team) {
-          return team.venue;
-        });
+      var _ = require("underscore");
 
-        var sortedTeams = [];
-        for (var i = 0; i < venues.length; i++) {
-          var venue = _.where(teams, {
-            venue: venues[i].venue
-          });
-          sortedTeams.push(venue);
-        }
-
-        res.view({
-          venues: sortedTeams,
-          Utils: UtilityService
-        });
+      var venues = _.uniq(teams, false, function(team) {
+        return team.venue;
       });
+
+      var sortedTeams = [];
+      for (var i = 0; i < venues.length; i++) {
+        var venue = _.where(teams, {
+          venue: venues[i].venue
+        });
+        sortedTeams.push(venue);
+      }
+
+      res.view({
+        venues: sortedTeams,
+        Utils: UtilityService
+      });
+    });
   }
 };

@@ -1,5 +1,6 @@
-<% for(var i=0 ; i < venues.length; i++) { %>
-    <h3>Venue <%= venues[i][0].venue %></h3>
+<% for(var i=0, venLen = venues.length; i < venLen; i++) { %>
+    <% for(var j=0, divLen = venues[i].length; j < divLen; j++) { %>
+    <h3>Division <%= venues[i][j][0].division %>  Venue <%= venues[i][j][0].venue %></h3>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -11,17 +12,18 @@
             </tr>
         </thead>
         <tbody>
-            <% for(var j=0 ; j < venues[i].length; j++) { %>
-                <tr class="<%- (venues[i][j].scoresReady) ? ' warning ': '' %><%- (venues[i][j].noShow) ? ' danger ' : ''%>">
+            <% for(var k=0, teamLen = venues[i][j].length; k < teamLen; k++) { %>
+                <tr class="<%- (venues[i][j][k].scoresReady && !venues[i][j][k].scoresPickedUpByCoach) ? ' warning ': '' %><%- (venues[i][j][k].noShow) ? ' danger ' : ''%>">
                     <td>
-                        <a href="/team/show/<%= venues[i][j].id %>">
-                            <%= venues[i][j].schoolName %>
-                                <% if(venues[i][j].teamLetter) { %>
+                        <a href="/team/show/<%= venues[i][j][k].id %>">
+                            <%= venues[i][j][k].schoolName %>
+                                <% if(venues[i][j][k].teamLetter) { %>
                                     :
-                                    <%= venues[i][j].teamLetter %>
+                                    <%= venues[i][j][k].teamLetter %>
                                         <% } %>
                         </a>
                         <br>
+                        <%= venues[i][j][k].membershipNumber %>
                     </td>
                     <td class="autoFit">
                         <%if (!venues[i][j][k].performed) { %>
@@ -48,4 +50,5 @@
                 <% } %>
         </tbody>
     </table>
+    <% } %>
     <% } %>
