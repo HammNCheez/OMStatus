@@ -3,7 +3,6 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Membership #</th>
                 <th>Team</th>
                 <th><a href="/problem/<%= probNum %>?sort=longTerm">Longterm</a>
                 </th>
@@ -15,9 +14,6 @@
             <% for(var j=0 ; j < venues[i].length; j++) { %>
                 <tr class="<%- (venues[i][j].scoresReady) ? ' warning ': '' %><%- (venues[i][j].noShow) ? ' danger ' : ''%>">
                     <td>
-                        <%= venues[i][j].membershipNumber %>
-                    </td>
-                    <td>
                         <a href="/team/show/<%= venues[i][j].id %>">
                             <%= venues[i][j].schoolName %>
                                 <% if(venues[i][j].teamLetter) { %>
@@ -26,22 +22,28 @@
                                         <% } %>
                         </a>
                         <br>
-                        <%= venues[i][j].division %>
                     </td>
-                    <td>
-                        <%if (!venues[i][j].performed) { %>
-                            <%= Utils.getTime(venues[i][j].longtermTime) %>
+                    <td class="autoFit">
+                        <%if (!venues[i][j][k].performed) { %>
+                            <%= Utils.getTime(venues[i][j][k].longtermTime) %>
                         <% } else { %>
                             <span class="glyphicon glyphicon-ok"></span>
                         <% } %>
                     </td>
-                    <td>
-                        <%if (!venues[i][j].sponCompleted) { %>
-                            <%= Utils.getTime(venues[i][j].sponTime) %>
+                    <td class="autoFit">
+                        <%if (!venues[i][j][k].sponCompleted) { %>
+                            <%= Utils.getTime(venues[i][j][k].sponTime) %>
                         <% } else { %>
                             <span class="glyphicon glyphicon-ok"></span>
                         <% } %>
                     </td>
+                    <% if(Utils.hasRole(session.user, 'registration')) { %>
+                        <td class="autoFit">
+                            <% if(!venues[i][j][k].checkedIn) { %>
+                                <a class="btn btn-success btn-xs" href="/team/checkIn/<%= venues[i][j][k].id %>?problem=<%= probNum %>">Check-in</a>
+                                <% } %>
+                        </td>
+                        <% } %>
                 </tr>
                 <% } %>
         </tbody>

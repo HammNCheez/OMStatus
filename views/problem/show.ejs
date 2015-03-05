@@ -1,39 +1,33 @@
 <h1>Problem <%= probNum %></h1>
-
 <div class="row">
 	<div class="col-xs-12">
 		<% if (venues.length > 0) { %>
-			<% if(req.session.authenticated && Utils.hasRole(req.session.user, 'registration')) { %>
-			<%- partial('registration-grid.ejs') %>
-			<% } else { %>
+			
 			<%- partial('standard-grid.ejs') %>
-			<% } %>
+
 		<% } else { %>
 			<p>There are no teams for this problem.</p>
 		<% } %>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-xs-4">
-		<table class="table">
-			
-			<tr>
-				<td class="warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-				<td>Indicates scores are ready to be picked up.</td>
-			</tr>
-			<tr>
-				<td class="danger">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-				<td>Indicates team was a no show.</td>
-			</tr>
-		</table>
-	</div>
-</div>
 <% if(Utils.hasRole(session.user, 'scoreRoom')) { %>
 	<a href="/team/new?problem=<%= probNum %>" class="btn btn-default btn-s">
 		<span class="glyphicon glyphicon-plus"></span> Add New Team
 	</a>
 <% } %>
+
+<div class="row">
+	<div class="col-xs-8">
+		<table class="table">
+			
+			<tr>
+				<td class="warning" width="50%">Indicates scores are ready to be picked up.</td>
+				<td class="danger">Indicates team was a no show.</td>
+			</tr>
+		</table>
+	</div>
+</div>
 
 <script type="text/javascript">
 window.onload=function () {
