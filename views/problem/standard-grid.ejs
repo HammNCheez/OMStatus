@@ -1,7 +1,7 @@
 <% for(var i=0, venLen = venues.length; i < venLen; i++) { %>
     <% for(var j=0, divLen = venues[i].length; j < divLen; j++) { %>
     <h3>Division <%= venues[i][j][0].division %>  Venue <%= venues[i][j][0].venue %></h3>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Team</th>
@@ -41,11 +41,23 @@
                     </td>
                     <% if(Utils.hasRole(session.user, 'registration')) { %>
                         <td class="autoFit">
-                            <% if(!venues[i][j][k].checkedIn) { %>
-                                <a class="btn btn-success btn-xs" href="/team/checkIn/<%= venues[i][j][k].id %>?problem=<%= probNum %>">Check-in</a>
-                                <% } %>
+                            <a data-toggle="collapse" href="#collapseExample" data-target="#collapseme<%= venues[i][j][k].id %>" aria-expanded="false" aria-controls="collapseme<%= venues[i][j][k].id %>" class="btn btn-default btn-xs">
+                              <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
                         </td>
                         <% } %>
+                </tr>
+                <tr id="collapseme<%= venues[i][j][k].id %>" class="collapse out active">
+                    <td colspan="4">
+                        <div>
+                            <a class="btn btn-success btn-xs" href="/team/checkIn/<%= venues[i][j][k].id %>?problem=<%= probNum %>">Check-in</a>
+                             <button type="submit" class="btn btn-warning btn-xs" name="flag" value="noShow">No Show</button>
+      <button type="submit" class="btn btn-default btn-xs" name="flag" value="performed">Performed</button>
+      <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresReady">Scores Ready</button>
+      <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByCoach">Coach Picked Up Scores</button>
+      <button type="submit" class="btn btn-default  btn-xs" name="flag" value="scoresPickedUpByScoreRoom">Score Room Picked Up Scores</button>
+                        </div>
+                    </td>
                 </tr>
                 <% } %>
         </tbody>
