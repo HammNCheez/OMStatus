@@ -1,0 +1,26 @@
+-Create base page with following nav:
+Info | Tournament | Login
+
+needed pages:
+Index - not much functionality, maybe the tournament problem status or tournament status
+select tournament
+view problem schedule
+view tournament info 
+view membership info
+view team info
+add tournament
+add membership
+add team
+add user
+add role
+view/modify user info/roles
+
+
+wants:
+-When select tournament it should be saved into the rootScope/cookie
+-view problem schedule
+
+-when logged in can add more tournaments
+-when tournament is selected can view schedules for each problem
+-be able to search for a membership name or number between all problems
+-
