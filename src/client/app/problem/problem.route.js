@@ -17,11 +17,10 @@
         templateUrl: 'app/problem/problem.html',
         controller: 'ProblemController',
         controllerAs: 'vm',
-        title: 'Problems',
-        // settings: {
-        //   nav: 1,
-        //   content: '<i class="fa fa-dashboard"></i> Dashboard'
-        // }
+        title: 'Problem',
+        settings: {
+          titleSuffix: 'probId'
+        }
       }
     }];
   }
