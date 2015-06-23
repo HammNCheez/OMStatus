@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover" border="0">
+      <thead>
+        <tr>
+          <th>Items</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in items"  >
+          <td>
+            <p>
+              <h4>{{ item.assoc }} - {{ item.year }} {{item.name }} </h4>
+              {{item.date | date:"MM/dd/yyyy"}}
+            </p>
+          </td>
+          <td>
+            <div class="pull-right">
+            <button type="button" class="btn btn-xs btn-default" ng-click="select(item)">
+              <span class="glyphicon glyphicon-circle-arrow-right"></span>
+              <span class="hidden-xs">Select</span>
+            </button>
+          </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -4,6 +4,7 @@
     'app.core',
     'app.layout',
     'app.dashboard',
-    'app.problem'
+    'app.problem',
+    'app.tournament'
   ]);
 })();
