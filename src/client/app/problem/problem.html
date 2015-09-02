@@ -1,3 +1,14 @@
 <div class="container">
-  This is problem {{vm.probId}} for {{ vm.tourney }}.
+  <div ng-hide="vm.tourney">
+    <p>
+      You have not selected a tournament yet. Please <a ui-sref="tournament">select a tournament here</a>
+      then return to this page to see the schedule.
+    </p>
+  </div>
+  
+  <div ng-show="vm.tourney">
+    <div ng-repeat="venue in vm.teams">
+      <venue-list venue="venue"></venue-list>
+    </div>
+  </div>
 </div>

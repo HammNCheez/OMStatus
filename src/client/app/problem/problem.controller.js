@@ -2,12 +2,15 @@
   'use strict';
   angular
     .module('app.problem')
-    .controller('ProblemController', ProblemController);
+    .controller('ProblemController', ProblemController, 'problemService');
 
-  function ProblemController($stateParams, $rootScope) {
+  function ProblemController($stateParams, $rootScope, problemService) {
     var vm = this;
     vm.probId = $stateParams.probId;
     vm.title = 'Problem ' + vm.probId;
-    vm.tourney = $rootScope.selectedTournament.getName();
+    vm.tourney = $rootScope.selectedTournament;
+    
+    if(vm.tourney)
+      vm.teams = problemService.getTeamsForTournament(vm.probId, vm.tourney.$id);
   }
 })();

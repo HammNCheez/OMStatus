@@ -19,7 +19,8 @@
     "gulp-nodemon": "^2.0.3",
     "gulp-open": "^0.3.2",
     "gulp-watch": "^4.2.4",
-    "main-bower-files": "^2.8.0"
+    "main-bower-files": "^2.9.0",
+    "run-sequence": "^1.1.2"
   },
   "dependencies": {
     "body-parser": "^1.12.4",

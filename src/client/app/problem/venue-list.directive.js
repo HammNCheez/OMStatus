@@ -1,17 +1,17 @@
 (function() {
   'use strict';
-  angular.module('app.tournament')
-    .directive('tournamentList', TournamentListDirective);
+  angular.module('app.problem')
+    .directive('venueList', VenueListDirective);
   
-  TournamentListDirective.$inject = ['tournamentsFactory'];
+  //VenueListDirective.$inject = [''];
   
   /* @ngInject */
-  function TournamentListDirective(tournamentsFactory) {
+  function VenueListDirective() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/tournament/tournament-list.html',
+      templateUrl: 'app/problem/venue-list.html',
       scope: {
-        items: '=',
+        venue: '=',
         selectedItem: '=',
         options: '=',
       },

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>Venue {{ venue.venueName }}</h3>
+    <table class="table table-bordered table-striped" ng-repeat="div in venue.divisions">
+      <thead>
+        <tr>
+          <th colspan="3">Division {{div.$id}}</th>
+        </tr>  
+        <tr>
+          <th>Team</th>
+          <th>Longterm</th>
+          <th>Spontaneous</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="team in div">
+          <td>
+            {{team.schoolName}} <span ng-show="team.teamLetter">: {{team.teamLetter}} </span><br>
+            {{team.membershipNum}}
+          </td>
+          <td class="autoFit">
+            <span ng-hide="team.performed">{{team.longtermTime | date:'shortTime'}}</span>
+            <span ng-show="team.performed" class="glyphicon glyphicon-ok"></span>
+          </td>
+          <td class="autoFit">
+            <span ng-hide="team.sponCompleted">{{team.sponTime | date:'shortTime'}}</span>
+            <span ng-show="team.sponCompleted" class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
