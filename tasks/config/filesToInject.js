@@ -7,6 +7,7 @@ module.exports = [
   'src/client/app/app.module.js',
   'src/client/app/**/*.module.js',
   'src/client/app/**/*.js',
+  'assets/styles/importer.css',
   //'client/animations/*.js',
   //'client/directives/**/*.js', '!client/directives/**/*.spec.js',
   //'client/filters/**/*.js', '!client/filters/**/*.spec.js',
