@@ -21,9 +21,9 @@ module.exports = function (app) {
   app.use(morgan('dev'));
   app.use(express.static(path.join(config.root, 'src/client')));
   app.use('/bower_components', express.static(path.join(config.root, 'bower_components')));
+  app.use('/assets', express.static(path.join(config.root, 'assets')));
   app.set('appPath', 'src/client');
 
-// app.use("/bower_components", express.static(path.join(__dirname, "bower_components")));
 
   if (env === 'development' || env === 'test') {
     app.use(require('errorhandler')());
