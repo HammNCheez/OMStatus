@@ -12,5 +12,10 @@
     
     if(vm.tourney)
       vm.teams = problemService.getTeamsForTournament(vm.probId, vm.tourney.$id);
+    
+    vm.teams.$loaded()
+      .then(function(list){
+        console.log(JSON.stringify(list, null, '\t'));
+      });
   }
 })();
