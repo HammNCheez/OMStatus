@@ -8,6 +8,7 @@
   
   <div ng-show="vm.tourney">
     <div ng-repeat="venue in vm.teams">
+      <h2>Venue {{venue.venueName}}</h2>
       <venue-list venue="venue"></venue-list>
     </div>
   </div>

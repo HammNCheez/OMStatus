@@ -22,7 +22,12 @@
     this.getTeamsForTournament = getTeamsForTournament;
 
     function getTeamsForTournament(probNum, tournamentId) {
-      var tournamentRef = refs[probNum].child(tournamentId);
+      var tournamentRef = refs[probNum].child(tournamentId).orderByChild("sortOrder");
+      
+      tournamentRef.on("value", function(snapshot) {
+        console.log(snapshot.val());
+      });
+      
       return $firebaseArray(tournamentRef);
     }
   }

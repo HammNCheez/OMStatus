@@ -15,7 +15,12 @@
     
     vm.teams.$loaded()
       .then(function(list){
-        console.log(JSON.stringify(list, null, '\t'));
+        vm.teams.forEach(logElement);
       });
+      
+    function logElement(element, index, array){
+      console.log('ID:' + element.$id);
+      console.log(JSON.stringify(element, null, '\t'));
+    };
   }
 })();
