@@ -44,6 +44,8 @@ assets/styles/importer.css
 
 node_modules
 bower_components
+.tmp
+typings
 
 
 
