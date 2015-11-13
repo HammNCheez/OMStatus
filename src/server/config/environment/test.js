@@ -2,6 +2,6 @@
 
 module.exports = {
   mongo: {
-    uri: 'mongodb://localhost/demo-banular-test'
+    uri: 'mongodb://localhost/om'
   }
 };

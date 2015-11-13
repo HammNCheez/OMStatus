@@ -11,6 +11,9 @@ var all = {
     options: {
       db: {
         safe: true
+      },
+      server: {
+        keepAlive: 1
       }
     }
   }

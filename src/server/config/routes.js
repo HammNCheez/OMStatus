@@ -1,9 +1,9 @@
 'use strict';
 
-var config = require('./config/environment'),
+var config = require('./environment'),
     chalk = require('chalk');
 
-module.exports = function (app) {
+module.exports = function (app, db) {
 
   // API
 

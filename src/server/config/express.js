@@ -16,7 +16,7 @@ module.exports = function (app) {
   app.set('view engine', 'html');
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  app.use(favicon(__dirname + '/favicon.ico'));
+  app.use(favicon(path.join(config.root, 'assets','favicon.ico')));
   app.use(compression());
   app.use(morgan('dev'));
   app.use(express.static(path.join(config.root, 'src/client')));
