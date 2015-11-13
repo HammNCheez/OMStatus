@@ -30,6 +30,8 @@ conn.on('open', function () {
   fs.readdirSync(modelsPath).forEach(function (file) {
     if (file.indexOf('.js') >= 0) 
       db[file.replace('.js', '')] = require(path.join(modelsPath, file))(mongoose, config);
+      console.log(chalk.yellow('Initialized Model: ') 
+                + chalk.yellow.bgRed(file.replace('.js', '')));
   });
 
   // create app
