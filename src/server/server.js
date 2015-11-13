@@ -26,19 +26,23 @@ conn.on('open', function () {
               chalk.yellow.bgRed(config.mongo.uri));
   
   // config mongoose models
+  console.log(chalk.yellow('\nInitializing Models...'));
   var modelsPath = path.join(__dirname, 'models');
   fs.readdirSync(modelsPath).forEach(function (file) {
-    if (file.indexOf('.js') >= 0) 
+    if (file.indexOf('.js') >= 0) {
+      console.log(chalk.yellow('Loading Model: ')+chalk.yellow.bgRed(file.replace('.js', '')));
       db[file.replace('.js', '')] = require(path.join(modelsPath, file))(mongoose, config);
-      console.log(chalk.yellow('Initialized Model: ') 
-                + chalk.yellow.bgRed(file.replace('.js', '')));
+    }
   });
 
   // create app
   var app   = express();
 
   // config app
+  console.log(chalk.yellow('\nInitializing Express Server...'));
   require('./config/express')(app);
+  
+  console.log(chalk.yellow('\nInitializing Routes...'));
   require('./config/routes')(app, db);
 
   // serve app
