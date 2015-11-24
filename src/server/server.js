@@ -7,6 +7,8 @@ var express = require('express'),
     fs = require('fs'),
     path = require('path');
 
+mongoose.Promise = global.Promise;
+
 // connect mongoose
 mongoose.connect(config.mongo.uri, config.mongo.options);
 var conn = mongoose.connection

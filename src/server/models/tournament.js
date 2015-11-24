@@ -30,6 +30,8 @@ module.exports = function (mongoose, config) {
 	  this.updatedAt = currentDate;
 	  if(!this.createdAt)
 	  	this.createdAt = currentDate;
+    
+    next();
   });
   
   return mongoose.model('tournament', tournamentSchema)

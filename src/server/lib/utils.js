@@ -2,9 +2,11 @@
 
 module.exports = function (db) {
   
-  var ObjectId = require('mongoose').Types.ObjectId
+  var ObjectId = require('mongoose').Types.ObjectId,
+      Chalk = require('chalk');
   
   function error (res, code, msg) {
+    console.log(Chalk.red(JSON.stringify(msg)));
     res.status(code).json({ error: msg });
   }
   
@@ -35,6 +37,22 @@ module.exports = function (db) {
     }
   },
 
+    
+  /*
+   * Update Parameters
+   */
+    
+    updateParam: function(orig, updated){
+      //console.log(Chalk.grey.bgBlue('Orig:') + '    ' + orig);
+      //console.log(Chalk.grey.bgBlue('Updated:') + ' ' + updated);
+      if(updated && updated !== orig){
+       //console.log('Returning updated.');
+        return updated;
+      }
+       //console.log('Returning orig.');
+      return orig;
+    },
+    
   /*
    * auth()
    * - Require active user session

@@ -13,9 +13,21 @@ module.exports = function (app, db) {
   }
   
   // API
-  console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('API'));
-  var api = route('api');
-  app.get('/api/tournaments', api.list);
+  console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Tournament Routes'));
+  var tournaments = route('tournaments');
+  app.get('/api/tournaments', tournaments.list);
+  app.get('/api/tournaments/:id', tournaments.getOne);
+  app.post('/api/tournaments', utils.body('name assoc level date'), tournaments.create);
+  app.put('/api/tournaments/:id', tournaments.update);
+  app.delete('/api/tournaments/:id', tournaments.delete);
+  
+  console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Membership Routes'));
+  var memberships = route('memberships');
+  app.get('/api/memberships', memberships.list);
+  app.get('/api/memberships/:id', memberships.getOne);
+  app.post('/api/memberships', utils.body('name assoc level date'), memberships.create);
+  app.put('/api/memberships/:id', memberships.update);
+  app.delete('/api/memberships/:id', memberships.delete);
 
   // Base Routes
   console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Base Routes'));
