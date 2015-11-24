@@ -70,8 +70,6 @@ module.exports = function (db, utils) {
             }
           }
 
-          tournament.updatedAt = new Date();
-
           return tournament.save();
         }
       ).then(

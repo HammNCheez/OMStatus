@@ -17,15 +17,17 @@ module.exports = function (app, db) {
   var tournaments = route('tournaments');
   app.get('/api/tournaments', tournaments.list);
   app.get('/api/tournaments/:id', tournaments.getOne);
-  app.post('/api/tournaments', utils.body('name assoc level date'), tournaments.create);
+  app.post('/api/tournaments', utils.body('name assoc year level date'), tournaments.create);
   app.put('/api/tournaments/:id', tournaments.update);
   app.delete('/api/tournaments/:id', tournaments.delete);
   
   console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Membership Routes'));
   var memberships = route('memberships');
   app.get('/api/memberships', memberships.list);
+  app.get('/api/memberships/:division', memberships.byDiv);
+  app.get('/api/memberships/:assoc/:division', memberships.byAssocDiv);
   app.get('/api/memberships/:id', memberships.getOne);
-  app.post('/api/memberships', utils.body('name assoc level date'), memberships.create);
+  app.post('/api/memberships', utils.body('name number assoc division year'), memberships.create);
   app.put('/api/memberships/:id', memberships.update);
   app.delete('/api/memberships/:id', memberships.delete);
 
