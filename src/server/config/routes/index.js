@@ -31,6 +31,16 @@ module.exports = function (app, db) {
   app.put('/api/memberships/:id', memberships.update);
   app.delete('/api/memberships/:id', memberships.delete);
 
+  console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Problem Routes'));
+  var problems = route('problems');
+  app.get('/api/problems', problems.list);
+  app.get('/api/problems/:probNum/:tournament', problems.byTournament);
+//   app.get('/api/problems/:id', problems.getOne);
+  app.post('/api/problems', utils.body('name number year tournament'), problems.create);
+  app.post('/api/problems/:id', utils.body('name sortOrder'), problems.addVenue);
+//   app.put('/api/problems/:id', problems.update);
+  app.delete('/api/problems/:id', problems.delete);
+  
   // Base Routes
   console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Base Routes'));
   app.get('/*', function (req, res) {

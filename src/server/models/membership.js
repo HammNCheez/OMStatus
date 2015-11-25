@@ -32,5 +32,7 @@ module.exports = function (mongoose, config) {
     next();
   });
 
+  membershipSchema.index({assoc: 1, division: 1});
+  
   return mongoose.model('membership', membershipSchema)
 };
