@@ -1,0 +1,71 @@
+<div class="container">
+  <h1>Membership page</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <th>Name</th>
+      <th>Number</th>
+      <th>Association</th>
+      <th>Division</th>
+      <th>Year</th>
+      <th></th>
+    </thead>
+    <tr ng-repeat="membership in vm.memberships.data">
+      <td>
+        <span editable-text="membership.name" e-name="name" e-form="rowform" e-placeholder="Membership Name" e-required>
+          {{ membership.name || 'empty' }}
+        </span>
+      </td>
+      <td>
+        <span editable-text="membership.number" e-name="number" e-placeholder="Membership Number" e-form="rowform">
+          {{ membership.number || 'empty' }}
+        </span>
+      </td>
+      <td>
+        <span editable-select="membership.assoc" e-name="assoc" e-placeholder="Association" 
+              onshow="vm.loadAssocs()" e-ng-options="a.value as a.value for a in vm.assocs" e-form="rowform" e-required>
+          {{ membership.assoc || 'empty' }}
+        </span>
+      </td>
+      <td>
+        <span editable-select="membership.division" e-name="division" e-placeholder="Division" 
+              e-ng-options="d.value as d.text for d in vm.divisions" e-form="rowform" e-required>
+          {{ vm.showDivision(membership) || 'empty' }}
+        </span>
+      </td>
+      <td>
+        <span editable-text="membership.year" e-name="year" e-placeholder="Year"  e-form="rowform" e-required>
+          {{ membership.year || 'empty' }}
+        </span>
+      </td>
+      <td style="white-space: nowrap">
+        <!-- form -->
+        <form editable-form name="rowform" onbeforesave="vm.saveMembership($data, membership._id, $index)" 
+              ng-show="rowform.$visible" class="form-buttons form-inline" shown="vm.inserted == membership">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            save
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            cancel
+          </button>
+        </form>
+        <div class="buttons" ng-show="!rowform.$visible">
+          <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+          <button class="btn btn-danger" ng-click="vm.showDeletePopup(true, membership._id, $index)">del</button>
+        </div>  
+      </td>
+    </tr>
+  </table>
+
+  <button class="btn btn-default" ng-click="vm.addMembership()">Add row</button>
+  
+  <!-- Delete Alert -->
+  <div class="alert alert-block alert-error notification fade in" ng-show="vm.displayDeletePopup">
+    <h6>Are you sure you want to delete this membership?</h6>
+    <div class="form-controls-alert">
+      <a href="" class="btn" ng-click="vm.showDeletePopup(false)">No</a>
+      <a href="" class="btn btn-danger" ng-click="vm.removeMembership(vm.membershipId, vm.membershipIndex)">Yes</a>
+    </div>
+  </div>
+  <!-- end alert -->
+</div>
