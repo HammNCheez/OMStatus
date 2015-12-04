@@ -13,6 +13,13 @@ module.exports = function (app, db) {
   }
   
   // API
+   console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Association Routes'));
+  var assoc = route('assoc');
+  app.get('/api/assoc', assoc.list);
+  app.post('/api/assoc', utils.body('name'), assoc.create);
+  app.put('/api/assoc/:id', assoc.update);
+  app.delete('/api/assoc/:id', assoc.delete);
+  
   console.log(chalk.yellow('Configuring :') + chalk.yellow.bgRed('Tournament Routes'));
   var tournaments = route('tournaments');
   app.get('/api/tournaments', tournaments.list);
