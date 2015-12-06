@@ -4,10 +4,10 @@
     .module('app.membership')
     .controller('MembershipController', MembershipController);
 
-  MembershipController.$inject = ['membershipFactory', '$http'];
+  MembershipController.$inject = ['membershipFactory', '$http', '$uibModal'];
 
   /* @ngInject */
-  function MembershipController(membershipFactory, $http) {
+  function MembershipController(membershipFactory, $http,  $uibModal) {
     var vm = this;
     membershipFactory.getAll.then(function(memberships){
       vm.memberships = memberships;
@@ -15,8 +15,6 @@
 
     //load up scope
     var vm = this;
-    vm.displayDeletePopup = false;
-    vm.showDeletePopup = showDeletePopup;
     vm.divisions = [
       {value: 'P', text: 'Primary'},
       {value: '1', text: 'Division 1'},
@@ -30,16 +28,7 @@
     vm.addMembership = addMembershipToTable;
     vm.saveMembership = saveMembership;
     vm.removeMembership = removeMembership;
-
-    function showDeletePopup(options, id, index) {
-      if (options === true) {
-        vm.displayDeletePopup = true;
-      } else {
-        vm.displayDeletePopup = false;
-      }
-      vm.membershipId = id;
-      vm.membershipIndex = index;
-    };
+    vm.confirmDelete = confirmDelete;
 
     function loadAssocs() {
       return vm.assocs.length ? null : $http.get('/api/assoc').success(
@@ -103,6 +92,29 @@
       }
     };
 
+    function confirmDelete(membershipId, index) {
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'app/utils/confirm.html',
+        controller: 'ConfirmController',
+        controllerAs: 'vm',
+        //size: '',
+        resolve: {
+          message: function () {
+            return 'delete this membership';
+          }
+        }
+      });
+      
+      modalInstance.result.then(function (message) {
+        removeMembership(membershipId, index);
+      }, function () {
+        //$log.info('Modal dismissed at: ' + new Date());
+        console.log('Delete Confrim dismissed for %s', membershipId);
+      });
+    };
+    
     function removeMembership(membershipId, index) {
       var delMembership = vm.memberships.data[index];
       
