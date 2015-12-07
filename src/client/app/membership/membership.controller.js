@@ -102,7 +102,7 @@
         //size: '',
         resolve: {
           message: function () {
-            return 'delete this membership';
+            return 'Are you sure you want to delete this membership?';
           }
         }
       });
@@ -117,8 +117,6 @@
     
     function removeMembership(membershipId, index) {
       var delMembership = vm.memberships.data[index];
-      
-      showDeletePopup(false);
       
       vm.memberships.data.splice(index, 1);
 
