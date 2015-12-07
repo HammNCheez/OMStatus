@@ -3,6 +3,7 @@
   angular
     .module('app.utils', [
     'app.core',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'restangular'
   ]);
 })();

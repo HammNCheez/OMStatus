@@ -4,11 +4,13 @@
     .module('app.membership')
     .controller('MembershipController', MembershipController);
 
-  MembershipController.$inject = ['membershipFactory', '$http', '$uibModal'];
+  MembershipController.$inject = ['crudFactory', '$http', '$uibModal'];
 
   /* @ngInject */
-  function MembershipController(membershipFactory, $http,  $uibModal) {
+  function MembershipController(crudFactory, $http,  $uibModal) {
     var vm = this;
+
+    var membershipFactory = new crudFactory('memberships');
     membershipFactory.getAll.then(function(memberships){
       vm.memberships = memberships;
     });
@@ -46,11 +48,11 @@
         var div = _.find(vm.divisions, _.matchesProperty('value', membership.division));
         if(div)
           return div.text;
-        
+
         return undefined;
       }
     };
-    
+
     function addMembershipToTable() {
       vm.inserted = {
         _id : -1,
@@ -81,8 +83,8 @@
       } else { //Save New User
         membershipFactory.add(data).then(
           function(result){
-            console.log('Membership successfully added');
-            vm.memberships.data[index]._id =  result.data.id;
+            console.log('Membership successfully added with ID %s', result.data._id);
+            vm.memberships.data[index]._id =  result.data._id;
           },
           function(error){
             console.log('Status: ' + error.status);
@@ -106,7 +108,7 @@
           }
         }
       });
-      
+
       modalInstance.result.then(function (message) {
         removeMembership(membershipId, index);
       }, function () {
@@ -114,10 +116,10 @@
         console.log('Delete Confrim dismissed for %s', membershipId);
       });
     };
-    
+
     function removeMembership(membershipId, index) {
       var delMembership = vm.memberships.data[index];
-      
+
       vm.memberships.data.splice(index, 1);
 
       if(membershipId !== -1){
