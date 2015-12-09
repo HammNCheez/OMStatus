@@ -4,10 +4,10 @@
     .module('app.membership')
     .controller('MembershipController', MembershipController);
 
-  MembershipController.$inject = ['crudFactory', '$http', '$uibModal'];
+  MembershipController.$inject = ['crudFactory', '$http', '$uibModal', 'divisions'];
 
   /* @ngInject */
-  function MembershipController(crudFactory, $http,  $uibModal) {
+  function MembershipController(crudFactory, $http,  $uibModal, divisions) {
     var vm = this;
 
     var membershipFactory = new crudFactory('memberships');
@@ -17,13 +17,7 @@
 
     //load up scope
     var vm = this;
-    vm.divisions = [
-      {value: 'P', text: 'Primary'},
-      {value: '1', text: 'Division 1'},
-      {value: '2', text: 'Division 2'},
-      {value: '3', text: 'Division 3'},
-      {value: '4', text: 'Division 4'}
-    ];
+    vm.divisions = divisions;
     vm.assocs = [];
     vm.loadAssocs = loadAssocs;
     vm.showDivision = showDivision;
