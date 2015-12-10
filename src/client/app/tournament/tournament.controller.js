@@ -15,7 +15,6 @@
       vm.tournaments = tournaments;
     });
 
-    vm.showDetailRow = showDetailRow;
     vm.showLevel = showLevel;
 
     function showLevel(level){
@@ -27,15 +26,5 @@
         return undefined;
       }
     };
-
-    function showDetailRow(tournamentId){
-     $log.debug('ShowDetails: %s', tournamentId);
-      if (vm.active != tournamentId) {
-        vm.active = tournamentId;
-      }
-      else {
-        vm.active = null;
-      }
-    }
   };
 })();
