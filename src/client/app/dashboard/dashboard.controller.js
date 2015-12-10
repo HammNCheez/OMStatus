@@ -4,12 +4,12 @@
     .module('app.dashboard')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$rootScope', 'tournamentsFactory'];
+  DashboardController.$inject = ['$rootScope', 'crudFactory'];
 
   /* @ngInject */
-  function DashboardController($rootScope, tournamentsFactory) {
+  function DashboardController($rootScope, crudFactory) {
     var vm = this;
-    vm.tournaments = tournamentsFactory.vals;
+    //vm.tournaments = tournamentsFactory.vals;
     vm.addTournament = addTournament;
     vm.setTournament = setTournament;
 
@@ -25,7 +25,7 @@
           address: '123 Briar Forest Rd. Houston, Tx 77042'
         }
       };
-      tournamentsFactory.add(newTourney);
+      //tournamentsFactory.add(newTourney);
     }
 
     function setTournament(tournament) {

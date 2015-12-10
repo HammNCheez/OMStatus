@@ -1,0 +1,16 @@
+<div class="panel {{panelClass || 'panel-default'}}">
+  <div class="panel-heading accordion-toggle" ng-click="toggleOpen()">
+    <h4 class="panel-title">
+      <div tabindex="0" class="accordion-toggle" uib-accordion-transclude="heading">
+        <span ng-class="{'text-muted': isDisabled}">{{heading}}</span>
+        <span class="pull-right glyphicon glyphicon-chevron-down" 
+            ng-class="{'glyphicon-chevron-right': !isOpen, 'glyphicon-chevron-down': isOpen}" 
+            aria-hidden="true">
+      </span>
+      </div>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" uib-collapse="!isOpen">
+    <div class="panel-body" style="text-align: right" ng-transclude></div>
+  </div>
+</div>

@@ -17,7 +17,7 @@
         templateUrl: 'app/tournament/tournament.html',
         controller: 'TournamentController',
         controllerAs: 'vm',
-        title: 'Select Tournament'
+        title: 'Tournaments'
       }
     }];
   }

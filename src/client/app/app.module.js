@@ -7,6 +7,8 @@
     'app.dashboard',
     'app.tournament',
     'app.membership',
-    'app.problem'
+    'app.problem',
+    'ngAnimate',
+    'ui.bootstrap'
   ]);
 })();
