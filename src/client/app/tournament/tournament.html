@@ -56,7 +56,7 @@
   <hr>
   <uib-accordion>
     <uib-accordion-group ng-repeat="t in vm.tournaments.data"
-                         heading="{{'{0} : {1} - {2} {3}' | stringFormat:[t.assoc, t.name, vm.showLevel(t.level), t.year]}}"
+                         heading="{{'{0} : {1} {2} {3}' | stringFormat:[t.name, t.assoc, vm.showLevel(t.level), t.year]}}"
                          template-url="app/utils/group-template.html">
       <div class="row">
         <div class="col-xs-4 text-center">
