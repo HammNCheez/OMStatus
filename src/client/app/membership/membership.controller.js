@@ -4,10 +4,10 @@
     .module('app.membership')
     .controller('MembershipController', MembershipController);
 
-  MembershipController.$inject = ['crudFactory', '$http', '$uibModal', 'divisions'];
+  MembershipController.$inject = ['crudFactory', '$http', '$uibModal', 'divisions', '$log'];
 
   /* @ngInject */
-  function MembershipController(crudFactory, $http,  $uibModal, divisions) {
+  function MembershipController(crudFactory, $http,  $uibModal, divisions, $log) {
     var vm = this;
 
     var membershipFactory = new crudFactory('memberships');
@@ -60,30 +60,30 @@
     };
 
     function saveMembership(data, membershipId, index) {
-      if(membershipId && membershipId != -1){ //Save Existing User
+      if(membershipId && membershipId != -1){ //Save Existing Membership
         angular.extend(data, {_id: membershipId});
 
         membershipFactory.update(data).then(
           function(result){
-            console.log('Membership %s successfully updated.', data._id);
+            $log.debug('Membership %s successfully updated.', data._id);
           },
           function(error){
-            console.log('Status: ' + error.status);
-            console.log('Message: ' + error.data.message);
-            console.log('Result: ' + JSON.stringify(error));
+            $log.error('An error occured while updating membership' +
+                       '\nMessage: ' + error.data.message + 
+                       '\nResult: ' + JSON.stringify(error));
           }
         );
 
-      } else { //Save New User
+      } else { //Save New Membership
         membershipFactory.add(data).then(
           function(result){
-            console.log('Membership successfully added with ID %s', result.data._id);
+            $log.debug('Membership successfully added with ID %s', result.data._id);
             vm.memberships.data[index]._id =  result.data._id;
           },
           function(error){
-            console.log('Status: ' + error.status);
-            console.log('Message: ' + error.data.message);
-            console.log('Result: ' + JSON.stringify(error));
+            $log.error('An error occured while saving new membership' +
+                       '\nMessage: ' + error.data.message + 
+                       '\nResult: ' + JSON.stringify(error));
           });
       }
     };
@@ -105,9 +105,6 @@
 
       modalInstance.result.then(function (message) {
         removeMembership(membershipId, index);
-      }, function () {
-        //$log.info('Modal dismissed at: ' + new Date());
-        console.log('Delete Confrim dismissed for %s', membershipId);
       });
     };
 
@@ -119,12 +116,12 @@
       if(membershipId !== -1){
         membershipFactory.remove(membershipId).then(
           function(result){
-            console.log('Membership %s successfully removed', membershipId);
+            $log.debug('Membership %s successfully removed', membershipId);
           },
           function(error){
-            console.log('Status: ' + error.status);
-            console.log('Message: ' + error.data.message);
-            console.log('Result: ' + JSON.stringify(error));
+            $log.error('An error occured while removing membership' +
+                       '\nMessage: ' + error.data.message + 
+                       '\nResult: ' + JSON.stringify(error));
             //put it back in
             vm.memberships.data.splice(index, 0, delMembership);
           }
