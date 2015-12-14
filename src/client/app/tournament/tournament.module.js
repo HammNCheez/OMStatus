@@ -2,6 +2,7 @@
   'use strict';
   angular.module('app.tournament', [
     'app.core', 
-    'app.utils'
+    'app.utils',
+    'xeditable'
   ]);
 })();

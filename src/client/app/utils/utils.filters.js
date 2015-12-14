@@ -2,7 +2,8 @@
   'use strict';
   angular
     .module('app.utils')
-    .filter('stringFormat', stringFormat);
+    .filter('stringFormat', stringFormat)
+    .filter('properCase', properCase);
 
   /* @ngInject */
   function stringFormat(){
@@ -13,6 +14,11 @@
       return toFormattedString(false, template, values);
     };
   };
+  
+  /* @ngInject */
+  function properCase(){
+    return toProperCase;
+  }
 
   function toFormattedString(useLocale, format, values) {
     var result = '';
@@ -81,4 +87,11 @@
 
     return result;
   };
+  
+  function toProperCase(input){
+    var lowered = input.toLowerCase();
+    
+    return lowered.replace(/\b\w+/g,function(s){return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();});
+    
+  }
 })();

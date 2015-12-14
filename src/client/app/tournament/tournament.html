@@ -1,49 +1,89 @@
 <div class="container">
   <uib-accordion>
     <uib-accordion-group ng-repeat="t in vm.tournaments.data"
-                         heading="{{'{0} : {1} {2} {3}' | stringFormat:[t.name, t.assoc, vm.showLevel(t.level), t.year]}}"
+                         heading="{{'{0} : {1} {2} {3}' | stringFormat:[t.name, vm.properCase(t.assoc), vm.showLevel(t.level), t.year]}}"
                          template-url="app/utils/group-template.html">
-      <div class="row">
-        <div class="col-xs-4 text-center">
-          <div class="row">
-            <div class="col-xs-6 text-right"><label>Tournament Name:</label></div>
-            <div class="col-xs-6 text-left">{{t.name}}</div>
+                         <!--is-open="t._id == -1"-->
+      <form editable-form name="tournamentForm" onaftersave="vm.saveTournament($data, t._id, $index)">
+        <div class="row">
+          <div class="col-xs-4 text-center">
+            <div class="row">
+              <div class="col-xs-6 text-right"><label>Tournament Name:</label></div>
+              <div class="col-xs-6 text-left">
+                <span editable-text="t.name" e-name="name" e-required e-placeholder="Tournament Name">{{t.name}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 text-right"><label>Association:</label></div>
+              <div class="col-xs-6 text-left">
+                <span editable-select="t.assoc" e-name="assoc" onshow="vm.loadAssocs()" 
+                      e-ng-options="a.value as a.text for a in vm.assocs" e-required>
+                  {{t.assoc | properCase}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 text-right"><label>Level:</label></div>
+              <div class="col-xs-6 text-left">
+                <span editable-select="t.level" e-name="level" e-ng-options="l.value as l.text for l in vm.levels" e-required>
+                  {{vm.showLevel(t.level)}}
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="row">
-            <div class="col-xs-6 text-right"><label>Association:</label></div>
-            <div class="col-xs-6 text-left">{{t.assoc}}</div>
+          <div class="col-xs-4 text-center">
+            <div class="row">
+              <div class="col-xs-6 text-right"><label>Date: </label></div>
+              <div class="col-xs-6 text-left">
+                <span editable-bsdate="t.date" e-datepicker-popup="MMM dd, yyyy" e-name="date"
+                      e-is-open="data.isOpen" e-ng-click="data.isOpen = true" e-init-date="false">
+                  {{t.date | date : "MMM dd, yyyy"}}
+                </span>
+                <!--span editable-text="t.date" e-name="date" e-required e-placeholder="Tournament Date">{{t.date | date : shortDate}}</span-->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 text-right"><label>Program Year: </label></div>
+              <div class="col-xs-6 text-left">
+                <span editable-number="t.year" e-name="year" e-required>{{t.year}}</span>
+              </div>
+            </div>
           </div>
-          <div class="row">
-            <div class="col-xs-6 text-right"><label>Tournament Level:</label></div>
-            <div class="col-xs-6 text-left">{{vm.showLevel(t.level)}}</div>
-          </div>
-        </div>
-        <div class="col-xs-4 text-center">
-          <div class="row">
-            <div class="col-xs-6 text-right"><label>Tournament Date: </label></div>
-            <div class="col-xs-6 text-left">{{t.date | date : shortDate}}</div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 text-right"><label>Program Year: </label></div>
-            <div class="col-xs-6 text-left">{{t.year}}</div>
-          </div>
-        </div>
-        <div class="col-xs-4 text-center">
-          <div class="row">
-            <div class="col-xs-4 text-right"><label>Tournament Location:</label></div>
-            <div class="col-xs-8 text-left">{{t.location.name}}</div>
-          </div>
-          <div class="row">
-            <div class="col-xs-4 text-right"><label>Tournament Address:</label></div>
-            <div class="col-xs-8 text-left">
-              {{t.location.address.street}}<br>
-              {{t.location.address.city}}, {{t.location.address.state}}<br>
-              {{t.location.address.zip}}
+          <div class="col-xs-4 text-center">
+            <div class="row">
+              <div class="col-xs-4 text-right"><label>Location:</label></div>
+              <div class="col-xs-8 text-left">
+                <span editable-text="t.location.name" e-name="locName" e-required e-placeholder="Location Name">{{t.location.name}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4 text-right"><label>Address:</label></div>
+              <div class="col-xs-8 text-left">
+                <span editable-text="t.location.address.street" e-name="street" e-required e-placeholder="Street">{{t.location.address.street}}</span><br>
+                <span editable-text="t.location.address.city" e-name="city" e-required e-placeholder="City">{{t.location.address.city}}</span>, 
+                <span editable-text="t.location.address.state" e-name="state" e-required e-placeholder="State">{{t.location.address.state}}</span><br>
+                <span editable-text="t.location.address.zip" e-name="zip" e-required e-placeholder="Zip">{{t.location.address.zip}}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <span ng-show="!tournamentForm.$visible">
+              <button type="button" class="btn-sm btn-default" ng-click="tournamentForm.$show()" >Edit</button>
+              <button type="button" class="btn-sm btn-danger" ng-click="vm.confirmDelete(t._id, $index)" >Delete</button>
+            </span>
+            <span ng-show="tournamentForm.$visible">
+              <br>
+              <button type="submit" class="btn-sm btn-primary" ng-disabled="tournamentForm.$waiting">Save</button>
+              <button type="button" class="btn-sm btn-default" ng-disabled="tournamentForm.$waiting" ng-click="tournamentForm.$cancel()">Cancel</button>
+            </span>
+          </div>
+        </div>
+      </form>
     </uib-accordion-group>
   </uib-accordion>
-    
+  
+  <button class="btn btn-default" ng-click="vm.addTournament()">Add Tournament</button>
+
 </div>

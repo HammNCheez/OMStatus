@@ -24,7 +24,7 @@ module.exports = function (db, utils) {
    * List Tournaments
    */
     list: function (req, res) {
-      db.tournament.find({}).exec().then(
+      db.tournament.find({}).sort({date: 1}).exec().then(
         function (tournaments) {
           res.json(tournaments || []);
         }, 
