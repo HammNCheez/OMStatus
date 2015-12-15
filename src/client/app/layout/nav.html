@@ -25,6 +25,18 @@
         {{ selectedTournament.getName() }} <a ui-sref="tournament">Change</a>
       </h5>
       <ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Admin <span class="caret"></span>
+           </a>
+           <ul class="dropdown-menu">
+             <li><a ui-sref="memberships">Memberships</a></li>
+             <li><a ui-sref="tournaments">Tournaments</a></li>
+             <li><a href="#">Something else here</a></li>
+             <li role="separator" class="divider"></li>
+             <li><a href="#">Users</a></li>
+           </ul>
+        </li>
         <li id="usersLink" ng-show="authenticated && user.admin"><a href="/user">Users</a></li>
         <li ng-hide="authenticated"><a class="navbar-link" href="/login">Sign In</a></li>
         <li ng-show="authenticated"><a class="navbar-link" href="/logout">Logout</a></li>

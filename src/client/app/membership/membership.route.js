@@ -11,9 +11,9 @@
 
   function getStates() {
     return [{
-      state: 'membership',
+      state: 'memberships',
       config: {
-        url: '/membership',
+        url: '/memberships',
         templateUrl: 'app/membership/membership.html',
         controller: 'MembershipController',
         controllerAs: 'vm',

@@ -11,7 +11,7 @@
 
   function getStates() {
     return [{
-      state: 'tournament',
+      state: 'tournaments',
       config: {
         url: '/tournaments',
         templateUrl: 'app/tournament/tournament.html',
