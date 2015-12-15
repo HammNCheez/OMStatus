@@ -8,20 +8,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in items"  >
+        <tr ng-repeat="t in tournaments.data"  >
           <td>
-            <p>
-              <h4>{{ item.assoc }} - {{ item.year }} {{item.name }} </h4>
-              {{item.date | date:"MM/dd/yyyy"}}
-            </p>
+            <h4>{{'{0} : {1} {2} {3}' | stringFormat:[t.name, properCase(t.assoc), showLevel(t.level), t.year]}}</h4>
+            <p>{{t.date | date:"MM/dd/yyyy"}} </p>
           </td>
           <td>
             <div class="pull-right">
-            <button type="button" class="btn btn-xs btn-default" ng-click="select(item.$id, item)">
-              <span class="glyphicon glyphicon-circle-arrow-right"></span>
-              <span class="hidden-xs">Select</span>
-            </button>
-          </div>
+              <button type="button" class="btn btn-xs btn-default" ng-click="select(t)">
+                <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                <span class="hidden-xs">Select</span>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
