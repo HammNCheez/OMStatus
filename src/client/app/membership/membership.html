@@ -23,8 +23,8 @@
       </td>
       <td>
         <span editable-select="membership.assoc" e-name="assoc" e-placeholder="Association" 
-              onshow="vm.loadAssocs()" e-ng-options="a.value as a.value for a in vm.assocs" e-form="rowform" e-required>
-          {{ membership.assoc || 'empty' }}
+              onshow="vm.loadAssocs()" e-ng-options="a.value as a.text for a in vm.assocs" e-form="rowform" e-required>
+          {{ (membership.assoc | properCase) || 'empty' }}
         </span>
       </td>
       <td>
@@ -34,7 +34,7 @@
         </span>
       </td>
       <td>
-        <span editable-text="membership.year" e-name="year" e-placeholder="Year"  e-form="rowform" e-required>
+        <span editable-number="membership.year" e-name="year" e-placeholder="Year"  e-form="rowform" e-required>
           {{ membership.year || 'empty' }}
         </span>
       </td>

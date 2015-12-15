@@ -26,12 +26,12 @@
     vm.removeMembership = removeMembership;
     vm.confirmDelete = confirmDelete;
 
-    function loadAssocs() {
+     function loadAssocs() {
       return vm.assocs.length ? null : $http.get('/api/assoc').success(
         function(data) {
           _.forEach(data, function(value){
             vm.assocs.push(
-              {value:value.name}
+              {value:value.name, text:_.startCase(value.name.toLowerCase())}
             );
           });
         });
