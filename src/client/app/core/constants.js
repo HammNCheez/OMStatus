@@ -18,6 +18,5 @@
                           {value: 1, text: 'Region'},
                           {value: 2, text: 'State'},
                           {value: 3, text: 'World'}
-                        ])
-    .constant('firebaseURL', 'https://om-status.firebaseio.com/');
+                        ]);
 })();
