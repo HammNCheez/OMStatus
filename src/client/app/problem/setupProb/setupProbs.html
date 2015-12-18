@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Setup Problems</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <th>Name</th>
+      <th>Number</th>
+      <th>Year</th>
+      <th>Tournament</th>
+      <th>Venues</th>
+    </thead>
+    <tr ng-repeat="problem in vm.problems.data" ng-click="vm.shout('This is row ' + $index + '!')">
+      <td>{{ problem.name }}</td>
+      <td>{{ problem.number }}</td>
+      <td>{{ problem.year }}</td>
+      <td>{{ problem.tournament.name }}</td>
+      <td>{{ problem.venues.length }}</td>
+    </tr>
+  </table>
+
+  <button class="btn btn-default" ng-click="vm.addProblem()">Add problem</button>
+</div>

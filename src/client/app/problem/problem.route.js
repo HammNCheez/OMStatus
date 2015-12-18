@@ -22,6 +22,16 @@
           titleSuffix: 'probId'
         }
       }
-    }];
+    },
+     {
+      state: 'setupProbs',
+      config: {
+        url: '/admin/problems',
+        templateUrl: 'app/problem/setupProb/setupProbs.html',
+        controller: 'SetupProbsController',
+        controllerAs: 'vm',
+        title: 'Setup Problems'
+      }
+    }      ];
   }
 })();
