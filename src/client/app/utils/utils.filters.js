@@ -89,9 +89,11 @@
   };
   
   function toProperCase(input){
-    var lowered = input.toLowerCase();
-    
-    return lowered.replace(/\b\w+/g,function(s){return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();});
+    if(input){
+      var lowered = input.toLowerCase();
+      return lowered.replace(/\b\w+/g,function(s){return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();});
+    }
+    return input;
     
   }
 })();
