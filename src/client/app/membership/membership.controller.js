@@ -25,6 +25,7 @@
     vm.saveMembership = saveMembership;
     vm.removeMembership = removeMembership;
     vm.confirmDelete = confirmDelete;
+    vm.cancelRow = cancelRow;
 
      function loadAssocs() {
       return vm.assocs.length ? null : $http.get('/api/assoc').success(
@@ -127,6 +128,13 @@
           }
         );
       }
+    };
+    
+    function cancelRow(index){
+      var canceledMembership = vm.memberships.data[index];
+      
+      if(canceledMembership._id === -1)
+        vm.memberships.data.splice(index, 1);
     };
   };
 })();
