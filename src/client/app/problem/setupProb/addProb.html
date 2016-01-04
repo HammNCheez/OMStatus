@@ -22,7 +22,10 @@
       <div class="col-xs-4 col-xs-offset-2">
         <div class="form-group">
           <label for="number">Problem Number</label>
-          <input type="number" class="form-control" id="number" ng-model="vm.prob.number" placeholder="Problem Number">
+          <select class="form-control" ng-model="vm.prob.number" id="number" 
+                  ng-Options="option.value as option.text for option in vm.problems track by option.value">
+            <option value="" disabled>Select Problem..</option>
+            </select>
         </div>
       </div>
       <div class="col-xs-4">

@@ -34,10 +34,13 @@
         templateUrl: 'app/problem/setupProb/addProb.html',
         controller: 'AddProbController',
         controllerAs: 'vm',
-        size: 'lg'
+        size: 'lg',
+        backdrop: 'static'
       });
 
       modalInstance.result.then(function (problem) {
+        $log.debug('Modal confirmed at ' + new Date());
+        $log.debug(JSON.stringify(problem));
         vm.problems.data.push(problem);
       }, function(message){$log.debug('Modal dismissed at ' + new Date())});
       
