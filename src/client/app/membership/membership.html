@@ -41,7 +41,7 @@
       <td style="white-space: nowrap">
         <!-- form -->
         <form editable-form name="rowform" onbeforesave="vm.saveMembership($data, membership._id, $index)" 
-              oncancel="vm.cancelRow($index)" ng-show="rowform.$visible" class="form-buttons form-inline" 
+              oncancel="vm.cancelEdit(membership._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline" 
               shown="vm.inserted == membership">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
             save

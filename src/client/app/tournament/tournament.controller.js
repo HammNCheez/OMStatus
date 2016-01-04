@@ -24,6 +24,7 @@
     vm.saveTournament = saveTournament;
     vm.confirmDelete = confirmDelete;
     vm.removeTournament = removeTournament;
+    vm.cancelEdit = cancelEdit;
     
 
     function loadAssocs() {
@@ -162,6 +163,13 @@
             vm.tournaments.data.splice(index, 0, delTournament);
           }
         );
+      }
+    };
+    
+    function cancelEdit(tournamentId, index){
+
+      if(tournamentId === -1){
+        vm.tournaments.data.splice(index, 1);
       }
     };
     
