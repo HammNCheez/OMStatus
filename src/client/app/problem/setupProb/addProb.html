@@ -14,7 +14,10 @@
       <div class="col-xs-4">
         <div class="form-group">
           <label for="tournament">Tournament</label>
-          <input type="text" class="form-control" id="tournament" ng-model="vm.prob.tournament" placeholder="Tournament">
+          <select class="form-control" ng-model="vm.prob.tournament" id="tournament" 
+                  ng-Options="option as option.name for option in vm.tournaments track by option.id">
+            <option value="" disabled>Select Tournament..</option>
+            </select>
         </div>
       </div>
     </div>
