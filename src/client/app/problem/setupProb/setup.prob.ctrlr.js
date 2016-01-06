@@ -19,7 +19,7 @@
     var vm = this;
     vm.shout = shout;
     vm.addProblem = addProblem;
-    //vm.saveMembership = saveMembership;
+    vm.saveProblem = saveProblem;
     //vm.removeMembership = removeMembership;
     //vm.confirmDelete = confirmDelete;
 
@@ -39,41 +39,45 @@
       });
 
       modalInstance.result.then(function (problem) {
-        $log.debug('Modal confirmed at ' + new Date());
         $log.debug(JSON.stringify(problem));
         vm.problems.data.push(problem);
+        vm.saveProblem(problem, vm.problems.data.length -1);
       }, function(message){$log.debug('Modal dismissed at ' + new Date())});
       
     };
 
-//     function saveMembership(data, membershipId, index) {
-//       if(membershipId && membershipId != -1){ //Save Existing Membership
-//         angular.extend(data, {_id: membershipId});
+    function saveProblem(data, index) {
+//       if(problemId && problemId != -1){ //Save Existing Problem
+//         angular.extend(data, {_id: problemId});
 
-//         membershipFactory.update(data).then(
+//         problemFactory.update(data).then(
 //           function(result){
-//             $log.debug('Membership %s successfully updated.', data._id);
+//             $log.debug('Problem %s successfully updated.', data._id);
 //           },
 //           function(error){
-//             $log.error('An error occured while updating membership' +
+//             $log.error('An error occured while updating problem' +
 //                        '\nMessage: ' + error.data.message + 
 //                        '\nResult: ' + JSON.stringify(error));
 //           }
 //         );
 
-//       } else { //Save New Membership
-//         membershipFactory.add(data).then(
-//           function(result){
-//             $log.debug('Membership successfully added with ID %s', result.data._id);
-//             vm.memberships.data[index]._id =  result.data._id;
-//           },
-//           function(error){
-//             $log.error('An error occured while saving new membership' +
-//                        '\nMessage: ' + error.data.message + 
-//                        '\nResult: ' + JSON.stringify(error));
-//           });
-//       }
-//     };
+//       } else { //Save New Problem
+      var newProb = {name: data.name,
+                    number: data.number,
+                    year: data.year,
+                    tournament: data.tournament.id};
+      problemFactory.add(newProb).then(
+        function(result){
+          $log.debug('Problem successfully added with ID %s', result.data._id);
+          vm.problems.data[index]._id =  result.data._id;
+        },
+        function(error){
+          $log.error('An error occured while saving new problem' +
+                     '\nMessage: ' + error.data.message + 
+                     '\nResult: ' + JSON.stringify(error));
+        });
+//     }
+    };
 
 //     function confirmDelete(membershipId, index) {
 
