@@ -83,7 +83,7 @@
 
 //       var modalInstance = $uibModal.open({
 //         animation: true,
-//         templateUrl: 'app/utils/confirm.html',
+//         templateUrl: 'app/utils/confirm.modal.html',
 //         controller: 'ConfirmController',
 //         controllerAs: 'vm',
 //         //size: '',
