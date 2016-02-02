@@ -17,9 +17,9 @@
 
     //load up scope
     var vm = this;
-    vm.shout = shout;
     vm.addProblem = addProblem;
     vm.saveProblem = saveProblem;
+    vm.editProblem = editProblem;
     //vm.removeMembership = removeMembership;
     //vm.confirmDelete = confirmDelete;
 
@@ -28,14 +28,18 @@
     };
     
     function addProblem() {
-      $log.debug('1');
       var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: 'app/problem/setupProb/addProb.html',
         controller: 'AddProbController',
         controllerAs: 'vm',
         size: 'lg',
-        backdrop: 'static'
+        backdrop: 'static',
+        resolve: {
+           problem: function(){
+             return null;
+           }
+        }
       });
 
       modalInstance.result.then(function (problem) {
@@ -77,6 +81,29 @@
                      '\nResult: ' + JSON.stringify(error));
         });
 //     }
+    };
+    
+    function editProblem(problemData){
+       var modalInstance = $uibModal.open({
+         animation: true,
+         templateUrl: 'app/problem/setupProb/addProb.html',
+         controller: 'AddProbController',
+         controllerAs: 'vm',
+         size: 'lg',
+         backdrop: 'static',
+         resolve: {
+           problem: function(){
+             return problemData;
+           }
+         }
+       });
+
+      modalInstance.result.then(function (problem) {
+        $log.debug(JSON.stringify(problem));
+        //vm.problems.data.push(problem);
+        //vm.saveProblem(problem, vm.problems.data.length -1);
+      }, function(message){$log.debug('Modal dismissed at ' + new Date())});
+      
     };
 
 //     function confirmDelete(membershipId, index) {

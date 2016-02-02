@@ -9,7 +9,7 @@
       <th>Tournament</th>
       <th>Venues</th>
     </thead>
-    <tr ng-repeat="problem in vm.problems.data" ng-click="vm.shout('This is row ' + $index + '!')">
+    <tr ng-repeat="problem in vm.problems.data" ng-click="vm.editProblem(problem)">
       <td>{{ problem.name }}</td>
       <td>{{ problem.number }}</td>
       <td>{{ problem.year }}</td>
