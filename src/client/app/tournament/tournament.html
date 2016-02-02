@@ -2,7 +2,7 @@
   <uib-accordion>
     <uib-accordion-group ng-repeat="t in vm.tournaments.data"
                          heading="{{'{0} : {1} {2} {3}' | stringFormat:[t.name, vm.properCase(t.assoc), vm.showLevel(t.level), t.year]}}"
-                         template-url="app/utils/group-template.html" is-open="t._id == -1">
+                         template-url="app/utils/group-template.html" ><!--is-open="t._id == -1"-->
       <form editable-form name="tournamentForm" onaftersave="vm.saveTournament($data, t._id, $index)" 
             oncancel="vm.cancelEdit(t._id, $index)" shown="vm.inserted == t">
         <div class="row">
