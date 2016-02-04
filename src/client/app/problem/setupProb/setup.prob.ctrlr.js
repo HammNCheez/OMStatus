@@ -92,7 +92,7 @@
          size: 'lg',
          backdrop: 'static',
          resolve: {
-           problem: function(){
+           thisProblem: function(){
              return problemData;
            }
          }
