@@ -12,8 +12,7 @@
     "toastr": "~2.1.1",
     "angular-xeditable": "~0.1.9",
     "restangular": "~1.5.1",
-    "angular-bootstrap": "~0.14.3",
-    "lodash": "3.10.1"
+    "angular-bootstrap": "~0.14.3"
   },
   "overrides": {
     "bootstrap": {
