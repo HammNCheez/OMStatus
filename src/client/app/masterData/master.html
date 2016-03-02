@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Master Data page</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <th>Name</th>
+      <th></th>
+    </thead>
+    <tr ng-repeat="assoc in vm.assocs.data">
+      <td>
+        <span editable-text="assoc.name" e-name="name" e-form="rowform" e-placeholder="Association Name" e-required>
+          {{ assoc.name || 'empty' }}
+        </span>
+      </td>
+      <td style="white-space: nowrap">
+        <!-- form -->
+        <form editable-form name="rowform" onbeforesave="vm.saveAssoc($data, assoc._id, $index)" 
+              oncancel="vm.cancelEdit(assoc._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline" 
+              shown="vm.inserted == assoc">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            save
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            cancel
+          </button>
+        </form>
+        <div class="buttons" ng-show="!rowform.$visible">
+          <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+          <button class="btn btn-danger" ng-click="vm.confirmDelete(assoc._id, $index)">del</button>
+        </div>  
+      </td>
+    </tr>
+  </table>
+
+  <button class="btn btn-default" ng-click="vm.addAssoc()">Add row</button>
+</div>

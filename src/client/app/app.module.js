@@ -7,6 +7,7 @@
     'app.dashboard',
     'app.tournament',
     'app.membership',
+    'app.master',
     'app.problem',
     'ngAnimate',
     'ui.bootstrap'
