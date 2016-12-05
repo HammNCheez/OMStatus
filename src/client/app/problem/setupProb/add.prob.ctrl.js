@@ -3,13 +3,13 @@
   angular
     .module('app.problem')
     .controller('AddProbController', AddProbController);
-  AddProbController.$inject = ['$uibModalInstance', '$uibModal', '$http', 'thisProblem', 'problems'];
+  AddProbController.$inject = ['$uibModalInstance', '$uibModal', '$http', 'problem', 'problems'];
   /* @ngInject */
-  function AddProbController($uibModalInstance, $uibModal, $http, thisProblem, problems) {
+  function AddProbController($uibModalInstance, $uibModal, $http, problem, problems) {
 
     var vm = this;
     vm.problems = problems;
-    vm.prob = (thisProblem ? thisProblem : {year: new Date().getFullYear()});
+    vm.prob = (problem ? problem : {year: new Date().getFullYear()});
     vm.ok = ok;
     vm.cancel = cancel;
     vm.tournaments = [];

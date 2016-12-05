@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular
-    .module('app.membership')
+    .module('app.problem')
     .controller('SetupProbsController', SetupProbsController);
 
   SetupProbsController.$inject = ['crudFactory', '$http', '$uibModal', '$log'];
@@ -92,7 +92,7 @@
          size: 'lg',
          backdrop: 'static',
          resolve: {
-           thisProblem: function(){
+           problem: function(){
              return problemData;
            }
          }
